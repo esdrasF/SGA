@@ -7,8 +7,6 @@ package br.com.sga.dao;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 
@@ -54,6 +52,11 @@ public abstract class HibernateDAOImp<T, ID extends Serializable>
     }
 
     @Override
+    public void saveOrUpdate(T entidade) {
+        getSession().saveOrUpdate(entidade);
+    }
+    
+    @Override
     public void remove(T entidade) {
         getSession().delete(entidade);
     }
@@ -81,4 +84,6 @@ public abstract class HibernateDAOImp<T, ID extends Serializable>
         List<T> litEntidades = criteria.getExecutableCriteria(getSession()).list();
         return litEntidades;
     }
+
+    
 }

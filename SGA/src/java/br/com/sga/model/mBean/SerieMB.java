@@ -72,9 +72,10 @@ public class SerieMB implements Serializable {
     }
     
     public void inserirSerie() {
-        serieDAO.save(serie);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série inserida com sucesso.",
-                null));
+        System.out.println("ENTROU NO MÉTODO inserirSerie()");
+//        serieDAO.saveOrUpdate(serie);
+//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série inserida com sucesso.",
+//                null));
     }
     
     public void excluirSerie() {

@@ -13,6 +13,8 @@ public interface InterfaceDAO<T, ID extends Serializable> {
     void save(T entidade);
 
     void update(T entidade);
+    
+    void saveOrUpdate(T entidade);
 
     void remove(T entidade);
 

@@ -30,11 +30,11 @@ and open the template in the editor.
                             
                                 <p:outputLabel value="Série/Ano:"/>
                                 <p:inputText id="serie" value="#{serieBean.serie.serie}" size="15" 
-                                             disabled="#{serieBean.disable}" required="true"/>
+                                             disabled="#{serieBean.disable}"/>
                                 <p:message for="serie" display="icon"/>
 
                                 <p:outputLabel value="Modalidade:"/>
-                                <p:selectOneMenu id="modalidade" value="#{serieBean.serie.modalidade}" disabled="#{serieBean.disable}" required="true">
+                                <p:selectOneMenu id="modalidade" value="#{serieBean.serie.modalidade}" disabled="#{serieBean.disable}">
                                     <f:selectItem itemLabel="Selecione um" itemValue=""/>
                                     <f:selectItem itemLabel="Fundamental" itemValue="FUNDAMENTAL"/>
                                     <f:selectItem itemLabel="Médio" itemValue="MÉDIO"/>
@@ -42,7 +42,7 @@ and open the template in the editor.
                                 <p:message for="modalidade" display="icon"/>
 
                                 <p:outputLabel value="Status:"/>
-                                <p:selectOneMenu id="status" value="#{serieBean.serie.status}" disabled="#{serieBean.disable}" required="true">
+                                <p:selectOneMenu id="status" value="#{serieBean.serie.status}" disabled="#{serieBean.disable}">
                                     <f:selectItem itemLabel="Selecione um" itemValue=""/>
                                     <f:selectItem itemLabel="Ativo" itemValue="A"/>
                                     <f:selectItem itemLabel="Inativo" itemValue="I"/>
@@ -51,9 +51,9 @@ and open the template in the editor.
                             </h:panelGrid>
                            
                             <h:panelGrid columns="3">
-                                <p:commandButton value="Novo" actionListener="#{serieBean.habilitarCamposNovaSerie}" update=":form_serie:panel_serieCampos"/> 
-                                <p:commandButton value="Salvar" actionListener="#{serieBean.inserirSerie}" disabled="#{serieBean.disable}" update="form_serie"/> 
-                                <p:commandButton value="Cancelar" actionListener="#{serieBean.cancelarNovo}" disabled="#{serieBean.disable}" update=":form_serie:panel_serieCampos"/> 
+                                <p:commandButton value="Novo" action="#{serieBean.habilitarCamposNovaSerie}" update=":form_serie:panel_serieCampos"/> 
+                                <h:commandButton value="Salvar" action="#{serieBean.inserirSerie}" disabled="#{serieBean.disable}" /> 
+                                <p:commandButton value="Cancelar" action="#{serieBean.cancelarNovo}" disabled="#{serieBean.disable}" update=":form_serie:panel_serieCampos"/> 
                             </h:panelGrid>
                                 
                         </p:panel>
