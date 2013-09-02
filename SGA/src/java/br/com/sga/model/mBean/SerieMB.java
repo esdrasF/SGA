@@ -25,15 +25,13 @@ public class SerieMB implements Serializable {
     private Serie serie;
     private List<Serie> series;
     private SerieDAOImp serieDAO;
-    private boolean disable = true;
 
     public SerieMB() {
-        setSerie(new Serie());
+        serie = new Serie();
         serieDAO = DAOFactory.instance(DAOFactory.HIBERNATE).getSerieDAOImp();
     }
 
     public Serie getSerie() {
-
         return serie;
     }
 
@@ -49,35 +47,29 @@ public class SerieMB implements Serializable {
         this.series = series;
     }
 
-    public boolean getDisable() {
-        return disable;
-    }
-
-    public void setDisable(boolean disable) {
-        this.disable = disable;
-    }
-    
     public void habilitarCamposNovaSerie() {
         setSerie(new Serie());
-        setDisable(false);
     }
-    
+
     public void habilitarCamposEditarSerie() {
-        setDisable(false);
     }
-    
+
     public void cancelarNovo() {
         setSerie(new Serie());
-        setDisable(true);
     }
-    
+
     public void inserirSerie() {
         System.out.println("ENTROU NO MÉTODO inserirSerie()");
-//        serieDAO.saveOrUpdate(serie);
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série inserida com sucesso.",
-//                null));
+        System.out.println(serie.getSerie());
+        System.out.println(serie.getModalidade());
+        System.out.println(serie.getStatus());
+        serieDAO.saveOrUpdate(serie);
+        setSerie(new Serie());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série inserida com sucesso.",
+                null));
+        
     }
-    
+
     public void excluirSerie() {
         serieDAO.remove(serie);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série excluida com sucesso.",
