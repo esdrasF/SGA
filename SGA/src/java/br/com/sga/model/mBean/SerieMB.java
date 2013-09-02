@@ -51,10 +51,11 @@ public class SerieMB implements Serializable {
         setSerie(new Serie());
     }
 
-    public void habilitarCamposEditarSerie() {
-    }
-
     public void cancelarNovo() {
+        setSerie(new Serie());
+    }
+    
+    public void limparCampos(){
         setSerie(new Serie());
     }
 
@@ -69,6 +70,7 @@ public class SerieMB implements Serializable {
 
     public void excluirSerie() {
         serieDAO.remove(serie);
+        setSerie(new Serie());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série excluida com sucesso.",
                 null));
     }
