@@ -60,9 +60,6 @@ public class SerieMB implements Serializable {
 
     public void inserirSerie() {
         System.out.println("ENTROU NO MÉTODO inserirSerie()");
-        System.out.println(serie.getSerie());
-        System.out.println(serie.getModalidade());
-        System.out.println(serie.getStatus());
         serieDAO.saveOrUpdate(serie);
         setSerie(new Serie());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série inserida com sucesso.",
