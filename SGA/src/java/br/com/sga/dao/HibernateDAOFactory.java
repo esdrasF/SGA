@@ -7,7 +7,6 @@ package br.com.sga.dao;
 import br.com.sga.dao.imp.AlunoDAOImp;
 import br.com.sga.dao.imp.EnderecoDAOImp;
 import br.com.sga.dao.imp.SerieDAOImp;
-import br.com.sga.util.HibernateUtil;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.hibernate.Session;

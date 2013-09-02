@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * @author DIGITACAOFUND
  */
 public class HibernateSessionFilter implements Filter {
-    
+
     private Logger log = LoggerFactory.getLogger(HibernateSessionFilter.class);
     private SessionFactory sf;
 
@@ -38,12 +38,19 @@ public class HibernateSessionFilter implements Filter {
         log.debug("Entrou no método doFilter do filtro HibernateSessionFilter.");
         try {
             log.debug("Iniciando a transação.");
-            Session session = this.sf.getCurrentSession();
+            
+            Session session;
+            
+            if (this.sf.getCurrentSession().isOpen()) {
+                session = this.sf.getCurrentSession();
+            } else {
+                session = sf.openSession();
+            }
             session.beginTransaction();
             request.setAttribute("session", session);
             log.debug("Passando a requisição para o próximo filtro.");
             fc.doFilter(request, response);
-            
+
             log.debug("Voltando ao filtro HibernaterSessionFilter.");
             log.debug("Comitando e fechando a sessão.");
             session = (Session) request.getAttribute("session");
