@@ -27,17 +27,20 @@ and open the template in the editor.
                     <h:outputLabel value="2013 - Todos os direitos reservados." /></b>
             </p:layoutUnit>
 
+            
             <!-- MENU -->
-
             <p:layoutUnit position="west" header="Menu" size="208" resizable="true" collapsible="true" 
                           style="font-size: 12px;">
-                <h:form>
-                    <ui:include src="menu.xhtml"/>
+                <h:form id="form_menu">
+                    <p:panelMenu style="width:200px">
+                        <p:submenu label="Cadastros gerais">
+                            <p:menuitem value="Série" outcome="/pages/seriepage.xhtml" icon="ui-icon-pencil" />
+                        </p:submenu>
+                    </p:panelMenu>
                 </h:form>
             </p:layoutUnit>
 
             <!-- CONTEÚDO-->
-
             <p:layoutUnit position="center" style="font-size: 13px;">
                 <ui:insert name="conteudo">
                 </ui:insert>

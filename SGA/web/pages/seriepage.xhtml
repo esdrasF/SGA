@@ -22,7 +22,7 @@ and open the template in the editor.
 
                     <h:form id="form_serie" style="font-size: 13px;">
 
-                        <p:messages id="mensagem" showDetail="false" showSummary="true" autoUpdate="t" closable="true" />
+                        <p:growl autoUpdate="false" showSummary="true" showDetail="false"/>
 
                         <p:panel id="panel_serieCampos" >
 
@@ -32,42 +32,40 @@ and open the template in the editor.
                             <h:panelGrid columns="3" cellpadding="4" >
 
                                 <p:outputLabel value="* Série/Ano:"/>
-                                <p:inputText id="serie" value="#{serieBean.serie.serie}" size="15" required="true"/>
+                                <h:inputText id="serie" value="#{serieBean.serie.serie}" size="15" required="true"/>
                                 <p:message for="serie" display="icon"/>
 
                                 <p:outputLabel value="* Modalidade:"/>
-                                <p:selectOneMenu id="modalidade" value="#{serieBean.serie.modalidade}" required="true">
+                                <h:selectOneMenu id="modalidade" value="#{serieBean.serie.modalidade}" required="true">
                                     <f:selectItem itemLabel="Selecione um" itemValue=""/>
                                     <f:selectItem itemLabel="Fundamental" itemValue="FUNDAMENTAL"/>
                                     <f:selectItem itemLabel="Médio" itemValue="MÉDIO"/>
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                                 <p:message for="modalidade" display="icon"/>
 
                                 <p:outputLabel value="* Status:"/>
-                                <p:selectOneMenu id="status" value="#{serieBean.serie.status}" required="true">
+                                <h:selectOneMenu id="status" value="#{serieBean.serie.status}" required="true">
                                     <f:selectItem itemLabel="Selecione um" itemValue=""/>
                                     <f:selectItem itemLabel="Ativo" itemValue="A"/>
                                     <f:selectItem itemLabel="Inativo" itemValue="I"/>
-                                </p:selectOneMenu>
+                                </h:selectOneMenu>
                                 <p:message for="status" display="icon"/>
                             </h:panelGrid>
 
                             <h:panelGrid columns="3">
-                                <p:commandButton value="Limpar" action="#{serieBean.limparCampos}" update=":form_serie"/>
-                                <p:commandButton value="Salvar" actionListener="#{serieBean.inserirSerie}" update=":panel_seriePrincipal"/>
+                                <p:commandButton value="Limpar" action="#{serieBean.limparCampos}" />
+                                <p:commandButton value="Salvar" actionListener="#{serieBean.inserirSerie}" update=":form_serie"/>
                             </h:panelGrid>
 
                         </p:panel>
-                    </h:form>
-                    
-                    <br/>
-                    
-                    <h:form id="form_table">
+
+                        <br/>
+
                         <p:dataTable id="table_series" var="serie" value="#{serieBean.series}"
-                                     paginator="true" rows="10"
+                                     paginator="true" rows="5"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
                                      rowsPerPageTemplate="5,10,15" emptyMessage="Nenhum registro encontrado."
-                                     style="width: 800px; text-align: center; font-size: 12px;">
+                                     style="width: 800px; text-align: center; font-size: 12px;" >
 
                             <f:facet name="header" >
                                 <h:outputText value="Lista de séries"/>
@@ -106,18 +104,21 @@ and open the template in the editor.
                                     <h:outputText value="Ações"/>
                                 </f:facet>
 
-                                <p:commandButton id="editar" icon="ui-icon-pencil" style="font-size: 9px;" title="Editar" 
-                                                 update=":form_serie:panel_serieCampos">
+                                <h:commandButton id="editar" style="font-size: 9px;" title="Editar">
                                     <f:setPropertyActionListener value="#{serie}" target="#{serieBean.serie}"/>
-                                </p:commandButton>
+                                </h:commandButton>
 
                                 <h:outputText value=" "/>
 
-                                <p:commandButton id="excluir" icon="ui-icon-trash" style="font-size: 9px;" title="Excluir" 
-                                                 update=":form_table" action="#{serieBean.excluirSerie}">
+                                <h:commandButton id="excluir" style="font-size: 9px;" title="Excluir" 
+                                                 action="#{serieBean.excluirSerie}">
                                     <f:setPropertyActionListener value="#{serie}" target="#{serieBean.serie}"/>
-                                </p:commandButton>
+                                </h:commandButton>
                             </p:column>
+
+                            <f:facet name="footer" >
+                                <h:outputText value="#{serieBean.series.size()} registros recuperados."/>
+                            </f:facet>
 
                         </p:dataTable>
                     </h:form>

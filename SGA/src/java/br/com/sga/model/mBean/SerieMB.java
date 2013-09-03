@@ -12,6 +12,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -40,7 +41,10 @@ public class SerieMB implements Serializable {
     }
 
     public List<Serie> getSeries() {
-        return serieDAO.getEntityes();
+        if (this.series == null || this.series.isEmpty()) {
+            return serieDAO.getEntityes();
+        }
+        return this.series;
     }
 
     public void setSeries(List<Serie> series) {
@@ -54,24 +58,22 @@ public class SerieMB implements Serializable {
     public void cancelarNovo() {
         setSerie(new Serie());
     }
-    
-    public void limparCampos(){
+
+    public void limparCampos() {
         setSerie(new Serie());
     }
 
     public void inserirSerie() {
         System.out.println("ENTROU NO MÉTODO inserirSerie()");
         serieDAO.saveOrUpdate(serie);
-        setSerie(new Serie());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série inserida com sucesso.",
                 null));
-        
     }
 
     public void excluirSerie() {
         serieDAO.remove(serie);
-        setSerie(new Serie());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série excluida com sucesso.",
                 null));
+        setSerie(new Serie());
     }
 }

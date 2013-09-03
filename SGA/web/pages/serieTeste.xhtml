@@ -7,39 +7,37 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>TODO supply a title</title>
     </h:head>
     <h:body>
-
         <ui:composition template="../templates/mainTemplate.xhtml">
             <ui:define name="conteudo">
+                <h:form id="form_teste">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="* Série/Ano:"/>
+                        <h:inputText id="serie" value="#{serieBean.serie.serie}" size="15" required="true"/>
 
-                <p:panel header="Serie">
-                    <h:form id="form_serie">
-                        <h:panelGrid columns="3" cellpadding="4">
-                            
-                            <p:outputLabel value="Serie:"/>
-                            <p:inputText id="serie" value="#{serieBean.serie.serie}"/>
-                            <p:message for="serie" display="icon"/>
-                            
-                            <p:outputLabel value="Modalidade:"/>
-                            <p:inputText id="modalidade" value="#{serieBean.serie.modalidade}"/>
-                            <p:message for="modalidade" display="icon"/>
-                            
-                            <p:outputLabel value="Status:"/>
-                            <p:inputText id="status" value="#{serieBean.serie.status}"/>
-                            <p:message for="status" display="icon"/>
-                            
-                            <p:commandButton value="Salvar" action="#{serieBean.inserirSerie}" update=":form_serie"/>
-                            
-                        </h:panelGrid> 
-                    </h:form>
-                </p:panel>
+                        <h:outputLabel value="* Modalidade:"/>
+                        <h:selectOneMenu id="modalidade" value="#{serieBean.serie.modalidade}" required="true">
+                            <f:selectItem itemLabel="Selecione um" itemValue=""/>
+                            <f:selectItem itemLabel="Fundamental" itemValue="FUNDAMENTAL"/>
+                            <f:selectItem itemLabel="Médio" itemValue="MÉDIO"/>
+                        </h:selectOneMenu>
 
+                        <h:outputLabel value="* Status:"/>
+                        <h:selectOneMenu id="status" value="#{serieBean.serie.status}" required="true">
+                            <f:selectItem itemLabel="Selecione um" itemValue=""/>
+                            <f:selectItem itemLabel="Ativo" itemValue="A"/>
+                            <f:selectItem itemLabel="Inativo" itemValue="I"/>
+                        </h:selectOneMenu>
+
+                        <h:commandButton value="Salvar" actionListener="#{serieBean.inserirSerie}" />
+                    </h:panelGrid>
+                </h:form>
             </ui:define>
         </ui:composition>
-
     </h:body>
 </html>
