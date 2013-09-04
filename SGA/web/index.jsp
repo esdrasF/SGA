@@ -4,4 +4,3 @@
     Author     : DIGITACAOFUND
 --%>
 
-<META http-equiv="Refresh" content="0, url=pages/pageindex.xhtml"/>

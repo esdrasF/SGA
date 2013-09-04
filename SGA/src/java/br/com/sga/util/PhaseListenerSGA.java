@@ -38,7 +38,9 @@ public class PhaseListenerSGA implements PhaseListener {
                         session.getTransaction().rollback();
                     }
                 } finally {
-                    session.close();
+                    if (session.isOpen()) {
+                        session.close();
+                    }
                 }
             }
         }
