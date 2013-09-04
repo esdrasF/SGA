@@ -12,8 +12,8 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -23,13 +23,17 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class SerieMB implements Serializable {
 
-    private Serie serie;
-    private List<Serie> series;
-    private SerieDAOImp serieDAO;
+    private Serie serie = null;
+    private List<Serie> series = null;
+    private SerieDAOImp serieDAO = null;
 
     public SerieMB() {
-        serie = new Serie();
-        serieDAO = DAOFactory.instance(DAOFactory.HIBERNATE).getSerieDAOImp();
+        this.serie = new Serie();
+        this.serieDAO = DAOFactory.instance(DAOFactory.HIBERNATE).getSerieDAOImp();
+        
+        if (this.series == null || this.series.isEmpty()) {
+            this.series = serieDAO.getEntityes();
+        }
     }
 
     public Serie getSerie() {
@@ -41,9 +45,6 @@ public class SerieMB implements Serializable {
     }
 
     public List<Serie> getSeries() {
-        if (this.series == null || this.series.isEmpty()) {
-            return serieDAO.getEntityes();
-        }
         return this.series;
     }
 
@@ -51,23 +52,25 @@ public class SerieMB implements Serializable {
         this.series = series;
     }
 
-    public void habilitarCamposNovaSerie() {
-        setSerie(new Serie());
+    public void atualizarTabela(ActionEvent event) {
+        
     }
-
-    public void cancelarNovo() {
-        setSerie(new Serie());
-    }
-
-    public void limparCampos() {
-        setSerie(new Serie());
-    }
-
+    
     public void inserirSerie() {
         System.out.println("ENTROU NO MÉTODO inserirSerie()");
-        serieDAO.saveOrUpdate(serie);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série inserida com sucesso.",
-                null));
+
+        if (serie.getId() == null) {
+            serieDAO.save(this.serie);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série inserida com sucesso.",
+                    null));
+            setSerie(null);
+        } else {
+            serieDAO.update(serieDAO.getEntityByID(this.serie.getId()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Série atualizada com sucesso.",
+                    null));
+            setSerie(null);
+        }
+        
     }
 
     public void excluirSerie() {

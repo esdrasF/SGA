@@ -38,9 +38,9 @@ public class HibernateSessionFilter implements Filter {
         log.debug("Entrou no método doFilter do filtro HibernateSessionFilter.");
         try {
             log.debug("Iniciando a transação.");
-            
+
             Session session;
-            
+
             if (this.sf.getCurrentSession().isOpen()) {
                 session = this.sf.getCurrentSession();
             } else {
@@ -63,10 +63,12 @@ public class HibernateSessionFilter implements Filter {
                 }
             } catch (Throwable t) {
                 t.printStackTrace();
-            } finally {
-                this.sf.getCurrentSession().close();
             }
             throw new ServletException();
+        } finally {
+            if (this.sf.getCurrentSession().isOpen()) {
+                this.sf.getCurrentSession().close();
+            }
         }
     }
 

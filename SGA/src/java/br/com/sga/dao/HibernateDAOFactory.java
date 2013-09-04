@@ -53,7 +53,4 @@ public class HibernateDAOFactory extends DAOFactory {
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         return (Session) request.getAttribute("session");
     }
-
-    
-
 }
