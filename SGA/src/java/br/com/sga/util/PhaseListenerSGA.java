@@ -4,7 +4,6 @@
  */
 package br.com.sga.util;
 
-import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
@@ -18,17 +17,20 @@ public class PhaseListenerSGA implements PhaseListener {
 
     @Override
     public void beforePhase(PhaseEvent phase) {
+        System.out.println("Entrou no PhaseListener...");
         if (phase.getPhaseId().equals(PhaseId.RESTORE_VIEW)) {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             session.beginTransaction();
-            FacesContext.getCurrentInstance().getExternalContext().getRequestMap().put("session", session);
+            FacesContextUtil.setRequestSession(session);
+            System.out.println("Abriu a sessão e setou no FacesContext.");
         }
     }
 
     @Override
     public void afterPhase(PhaseEvent phase) {
+        System.out.println("Entrou no PhaseListener (depois)...");
         if (phase.getPhaseId().equals(PhaseId.RENDER_RESPONSE)) {
-            Session session = (Session) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("session");
+            Session session = FacesContextUtil.getRequestSession();
 
             if (session.isOpen()) {
                 try {

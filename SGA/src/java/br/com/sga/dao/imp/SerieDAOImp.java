@@ -16,4 +16,8 @@ public class SerieDAOImp extends HibernateDAOImp<Serie, Integer> {
     public SerieDAOImp() {
         super();
     }
+    
+    public void salvarDeOutroJeito() {
+        System.out.println("Salvou de outro jeito...");
+    }
 }

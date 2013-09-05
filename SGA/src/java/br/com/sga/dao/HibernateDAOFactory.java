@@ -8,7 +8,6 @@ import br.com.sga.dao.imp.AlunoDAOImp;
 import br.com.sga.dao.imp.EnderecoDAOImp;
 import br.com.sga.dao.imp.SerieDAOImp;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +49,7 @@ public class HibernateDAOFactory extends DAOFactory {
     }
 
     protected Session getCurrentSession() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        return (Session) request.getAttribute("session");
+       return (Session) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("session");
+       
     }
 }

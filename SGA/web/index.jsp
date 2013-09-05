@@ -1,6 +1,2 @@
-<%-- 
-    Document   : index
-    Created on : 23/08/2013, 13:22:29
-    Author     : DIGITACAOFUND
---%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:redirect url="/restrict/home.xhtml"/>
