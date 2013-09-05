@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -35,7 +37,9 @@
             <p:layoutUnit position="west" size="210" collapsed="true" collapseSize="50" collapsible="true" header="Menu">  
                 <h:form id="menu">
                     <p:panelMenu id="menu" style="width: 200px;">
-                        <p:submenu label="Cadastros gerais"/>
+                        <p:submenu label="Cadastros gerais">
+                            
+                        </p:submenu>
                     </p:panelMenu>
                 </h:form>
             </p:layoutUnit>
@@ -44,9 +48,9 @@
                 <p:calendar mode="inline" />
             </p:layoutUnit>
 
-            <p:layoutUnit position="center" style="color: #ffffff;">  
+            <p:layoutUnit position="center" style="color: #ffffff; font-size: 13px;">  
                 <ui:insert name="conteudo">
-                    This fullPage layout consists of five different layoutUnits which are resizable and closable by default.  
+                    
                 </ui:insert>
             </p:layoutUnit>  
 

@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../resources/main.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="conteudo">
+
+        <p:panel id="panel_listaSerie" header="Serie" style="border: 0px;">
+
+            <p:panel id="panel_formEditar" >
+                <h:form id="form_editar" >
+
+                    <h:inputHidden id="idSerie" value="#{serieBean.serie.id}"/>
+
+                    <p:growl autoUpdate="true" showSummary="true" showDetail="false"/>
+
+                    <h:panelGrid columns="2" id="panelGrig_campos" cellpadding="5">
+
+                        <h:outputText value="* Serie/Ano:"/>
+                        <p:inputText id="serie" value="#{serieBean.serie.serie}" 
+                                     required="true" requiredMessage="Campo serie é obrigatório." size="14"/>
+
+                        <h:outputText value="* Modalidade:"/>
+                        <p:selectOneMenu id="modalidade" value="#{serieBean.serie.modalidade}" 
+                                         rendered="true" requiredMessage="Campo modalidade é obrigatório.">
+                            <f:selectItem itemLabel="Selecione um..." itemValue=""/>
+                            <f:selectItem itemLabel="Fundamental" itemValue="FUNDAMENTAL"/>
+                            <f:selectItem itemLabel="Médio" itemValue="MEDIO"/>
+                        </p:selectOneMenu>
+
+                        <h:outputText value="* Status:"/>
+                        <p:selectOneMenu id="status" value="#{serieBean.serie.status}"
+                                         rendered="true" requiredMessage="Campo status é obrigatório.">>
+                            <f:selectItem itemLabel="Selecione um..." itemValue=""/>
+                            <f:selectItem itemLabel="Ativo" itemValue="A"/>
+                            <f:selectItem itemLabel="Inativo" itemValue="I"/>
+                        </p:selectOneMenu>
+
+                        <p:commandButton value="Salvar" action="#{serieBean.addSerie}" update=":panel_listaSerie"/>
+
+                    </h:panelGrid>
+
+                </h:form>
+            </p:panel>
+
+            <h:form id="form_listaSerie">
+                <div style="margin-top: 6px;">
+
+                    <p:dataTable id="tabela_series" var="serie" value="#{serieBean.series}" 
+                                 paginator="true" rows="7" emptyMessage="Nenhum resultado foi encontrado."
+                                 style="
+                                 margin: 0 auto; 
+                                 width: 500px; 
+                                 text-align: center;
+                                 ">
+
+                        <f:facet name="header">
+                            <h:outputText value="Séries cadastradas"/>
+                        </f:facet>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Série/Ano"/>
+                            </f:facet>
+                            <h:outputText value="#{serie.serie}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Modalidade"/>
+                            </f:facet>
+                            <h:outputText value="#{serie.modalidade}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Status"/>
+                            </f:facet>
+                            <h:outputText value="#{serie.status}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Editar"/>
+                            </f:facet>
+                            <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 1px;" update=":form_editar">
+                                <f:setPropertyActionListener value="#{serie}" target="#{serieBean.serie}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Excluir"/>
+                            </f:facet>
+                            
+                            <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 1px;" action="#{serieBean.removerSerie}" update=":form_listaSerie">
+                                <f:setPropertyActionListener value="#{serie}" target="#{serieBean.serie}"/>
+                            </p:commandButton>
+                        </p:column>
+                       
+                        <f:facet name="footer">
+                            <h:outputText value="#{serieBean.series.size()} registros recuperados."/>
+                        </f:facet>
+
+
+                    </p:dataTable>
+                </div>
+            </h:form>
+
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>

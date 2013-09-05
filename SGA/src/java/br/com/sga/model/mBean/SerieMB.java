@@ -12,6 +12,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -26,6 +27,7 @@ public class SerieMB implements Serializable {
     private List<Serie> series;
 
     public SerieMB() {
+        serie = new Serie();
     }
 
     public Serie getSerie() {
@@ -37,7 +39,9 @@ public class SerieMB implements Serializable {
     }
 
     public List<Serie> getSeries() {
-        series = getSerieDAO().getEntityes();
+        if(series == null || series.size() == 0) {
+            series = getSerieDAO().getEntityes();
+        }
         return series;
     }
 
@@ -49,20 +53,18 @@ public class SerieMB implements Serializable {
         return DAOFactory.instance(DAOFactory.FACTORY_IMPLEMENTATION).getSerieDAOImp();
     }
 
-    public String addSerie() {
+    public void addSerie() {
         if (serie.getId() == null || serie.getId() == 0) {
             inserirSerie();
         } else {
             atualizarSerie();
         }
         limparSerie();
-        return "/restrict/listar_serie.xhtml";
     }
-    
-    public String removerSerie() {
+
+    public void removerSerie() {
         getSerieDAO().remove(serie);
         setMensagem("Serie removida com sucesso.", FacesMessage.SEVERITY_INFO);
-        return "/restrict/listar_serie.xhtml";
     }
 
     private void inserirSerie() {
@@ -73,13 +75,13 @@ public class SerieMB implements Serializable {
     private void atualizarSerie() {
         getSerieDAO().update(serie);
         setMensagem("Serie atualizada com sucesso.", FacesMessage.SEVERITY_INFO);
-        
+
     }
 
     private void limparSerie() {
         setSerie(new Serie());
     }
-    
+
     private void setMensagem(String msg, FacesMessage.Severity severity) {
         FacesContext.getCurrentInstance()
                 .addMessage(null, new FacesMessage(severity, msg, null));
