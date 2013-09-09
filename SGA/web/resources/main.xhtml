@@ -34,12 +34,18 @@
                 <h:outputText value="2013 (C) - Todos os direitos reservados." />  
             </p:layoutUnit>  
 
-            <p:layoutUnit position="west" size="210" collapsed="true" collapseSize="50" collapsible="true" header="Menu">  
+            <p:layoutUnit position="west" size="210" collapsed="false" collapseSize="50" collapsible="true" header="Menu">  
                 <h:form id="menu">
                     <p:panelMenu id="menu" style="width: 200px;">
                         <p:submenu label="Cadastros gerais">
+                            <p:menuitem value="Serie" outcome="../restrict/listar_serie.xhtml"/>
+                            <p:menuitem value="Ano Letivo" outcome="../restrict/listar_anoLetivo.xhtml"/>
+                            <p:menuitem value="Aluno" outcome="../restrict/listar_aluno.xhtml"/>
                             
                         </p:submenu>
+                        
+                        
+                        
                     </p:panelMenu>
                 </h:form>
             </p:layoutUnit>

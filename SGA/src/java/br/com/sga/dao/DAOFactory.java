@@ -5,6 +5,7 @@
 package br.com.sga.dao;
 
 import br.com.sga.dao.imp.AlunoDAOImp;
+import br.com.sga.dao.imp.AnoLetivoDAOImp;
 import br.com.sga.dao.imp.EnderecoDAOImp;
 import br.com.sga.dao.imp.SerieDAOImp;
 import org.slf4j.Logger;
@@ -28,4 +29,6 @@ public abstract class DAOFactory {
     public abstract AlunoDAOImp getAlunoDAO();
     public abstract SerieDAOImp getSerieDAOImp();
     public abstract EnderecoDAOImp getEnderecoDAOImp();
+    public abstract AnoLetivoDAOImp getAnoLetivoDAOImp();
+    
 }

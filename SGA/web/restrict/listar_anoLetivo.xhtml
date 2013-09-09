@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../resources/main.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="conteudo">
+
+        <p:panel id="panel_listaAnoLetivo" header="Ano Letivo" style="border: 0px;">
+
+            <p:panel id="panel_formEditar" >
+                <h:form id="form_editar" >
+
+                    <h:inputHidden id="idAnoLetivo" value="#{anoLetivoBean.anoLetivo.id}"/>
+
+                    <p:growl autoUpdate="true" showSummary="true" showDetail="false"/>
+
+                    <h:panelGrid columns="2" id="panelGrig_campos" cellpadding="5">
+
+                        <h:outputText value="* Ano:"/>
+                        <p:inputText id="ano" value="#{anoLetivoBean.anoLetivo.ano}" 
+                                     required="true" requiredMessage="Campo ano é obrigatório." size="14" maxlength="4"/>
+
+                        <p:commandButton value="Salvar" action="#{anoLetivoBean.addAnoLetivo}" update=":panel_listaAnoLetivo"/>
+
+                    </h:panelGrid>
+
+                </h:form>
+            </p:panel>
+
+            <h:form id="form_listaAnoLetivo">
+                <div style="margin-top: 6px;">
+
+                    <p:dataTable id="tabela_anosLetivos" var="ano" value="#{anoLetivoBean.listaAnoLetivo}" 
+                                 paginator="true" rows="7" emptyMessage="Nenhum resultado foi encontrado."
+                                 style="
+                                 margin: 0 auto; 
+                                 width: 500px; 
+                                 text-align: center;
+                                 ">
+
+                        <f:facet name="header">
+                            <h:outputText value="Séries cadastradas"/>
+                        </f:facet>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Série/Ano"/>
+                            </f:facet>
+                            <h:outputText value="#{ano.ano}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Editar"/>
+                            </f:facet>
+                            <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 1px;" update=":form_editar">
+                                <f:setPropertyActionListener value="#{ano}" target="#{anoLetivoBean.anoLetivo}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Excluir"/>
+                            </f:facet>
+                            
+                            <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 1px;" 
+                                             action="#{anoLetivoBean.removerAnoLetivo}" update=":form_listaAnoLetivo">
+                                <f:setPropertyActionListener value="#{ano}" target="#{anoLetivoBean.anoLetivo}"/>
+                            </p:commandButton>
+                        </p:column>
+                       
+                        <f:facet name="footer">
+                            <h:outputText value="#{anoLetivoBean.listaAnoLetivo.size()} registros recuperados."/>
+                        </f:facet>
+
+
+                    </p:dataTable>
+                </div>
+            </h:form>
+
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>

@@ -11,8 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -20,7 +19,7 @@ import javax.faces.context.FacesContext;
  * @author DIGITACAOFUND
  */
 @ManagedBean(name = "serieBean")
-@RequestScoped
+@ViewScoped
 public class SerieMB implements Serializable {
 
     private Serie serie;
@@ -39,8 +38,8 @@ public class SerieMB implements Serializable {
     }
 
     public List<Serie> getSeries() {
-        if(series == null || series.size() == 0) {
-            series = getSerieDAO().getEntityes();
+        if (series == null || series.size() == 0) {
+            recuperaSeries();
         }
         return series;
     }
@@ -49,22 +48,26 @@ public class SerieMB implements Serializable {
         this.series = series;
     }
 
-    private SerieDAOImp getSerieDAO() {
-        return DAOFactory.instance(DAOFactory.FACTORY_IMPLEMENTATION).getSerieDAOImp();
-    }
-
     public void addSerie() {
         if (serie.getId() == null || serie.getId() == 0) {
             inserirSerie();
+            recuperaSeries();
         } else {
             atualizarSerie();
+            recuperaSeries();
         }
         limparSerie();
     }
 
     public void removerSerie() {
         getSerieDAO().remove(serie);
+        setSerie(new Serie());
+        recuperaSeries();
         setMensagem("Serie removida com sucesso.", FacesMessage.SEVERITY_INFO);
+    }
+
+    private SerieDAOImp getSerieDAO() {
+        return DAOFactory.instance(DAOFactory.FACTORY_IMPLEMENTATION).getSerieDAOImp();
     }
 
     private void inserirSerie() {
@@ -85,5 +88,9 @@ public class SerieMB implements Serializable {
     private void setMensagem(String msg, FacesMessage.Severity severity) {
         FacesContext.getCurrentInstance()
                 .addMessage(null, new FacesMessage(severity, msg, null));
+    }
+
+    private void recuperaSeries() {
+        setSeries(getSerieDAO().getEntityes());
     }
 }

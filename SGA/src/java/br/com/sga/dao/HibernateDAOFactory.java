@@ -5,6 +5,7 @@
 package br.com.sga.dao;
 
 import br.com.sga.dao.imp.AlunoDAOImp;
+import br.com.sga.dao.imp.AnoLetivoDAOImp;
 import br.com.sga.dao.imp.EnderecoDAOImp;
 import br.com.sga.dao.imp.SerieDAOImp;
 import javax.faces.context.FacesContext;
@@ -35,6 +36,11 @@ public class HibernateDAOFactory extends DAOFactory {
         return (EnderecoDAOImp) instantiateDAO(EnderecoDAOImp.class);
     }
     
+    @Override
+    public AnoLetivoDAOImp getAnoLetivoDAOImp() {
+        return (AnoLetivoDAOImp) instantiateDAO(AnoLetivoDAOImp.class);
+    }
+    
     private HibernateDAOImp instantiateDAO(Class daoClass) {
         try {
             logger.debug("Criando instancia de \""+daoClass.getName()+"\".");
@@ -52,4 +58,6 @@ public class HibernateDAOFactory extends DAOFactory {
        return (Session) FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get("session");
        
     }
+
+    
 }

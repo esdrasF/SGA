@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../resources/main.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="conteudo">
+
+        <p:panel id="panel_listaAluno" header="Aluno" style="border: 0px;">
+
+            <h:form id="form_listaAluno">
+                
+                <h:inputHidden id="idAluno" value="#{alunoBean.aluno.id}"/>
+                
+                <div style="margin-top: 6px;">
+
+                    <p:dataTable id="tabela_aluno" var="aluno" value="#{alunoBean.listaAlunos}" 
+                                 paginator="true" rows="7" emptyMessage="Nenhum resultado foi encontrado."
+                                 style="
+                                 margin: 0 auto; 
+                                 width: 500px; 
+                                 text-align: center;
+                                 ">
+
+                        <f:facet name="header">
+                            <h:outputText value="Tabela de alunos"/>
+                        </f:facet>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Editar"/>
+                            </f:facet>
+                            <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 1px;" update=":form_listaAluno">
+                                <f:setPropertyActionListener value="#{aluno}" target="#{alunoBean.aluno}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Excluir"/>
+                            </f:facet>
+                            
+                            <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 1px;" 
+                                             action="#" update=":form_listaAluno">
+                                <f:setPropertyActionListener value="#{aluno}" target="#{alunoBean.aluno}"/>
+                            </p:commandButton>
+                        </p:column>
+                       
+                        <f:facet name="footer">
+                            <h:outputText value="#{alunoBean.listaAlunos.size()} registros recuperados."/>
+                        </f:facet>
+                        
+                    </p:dataTable>
+                </div>
+            </h:form>
+
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>
