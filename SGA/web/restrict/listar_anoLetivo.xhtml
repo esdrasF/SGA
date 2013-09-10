@@ -12,6 +12,11 @@
         <p:panel id="panel_listaAnoLetivo" header="Ano Letivo" style="border: 0px;">
 
             <p:panel id="panel_formEditar" >
+                
+               <i><h:outputText value="Os campos com (*) são de preenchimento obrigatório."/></i>
+               
+               <p:separator />
+                
                 <h:form id="form_editar" >
 
                     <h:inputHidden id="idAnoLetivo" value="#{anoLetivoBean.anoLetivo.id}"/>
@@ -24,7 +29,7 @@
                         <p:inputText id="ano" value="#{anoLetivoBean.anoLetivo.ano}" 
                                      required="true" requiredMessage="Campo ano é obrigatório." size="14" maxlength="4"/>
 
-                        <p:commandButton value="Salvar" action="#{anoLetivoBean.addAnoLetivo}" update=":panel_listaAnoLetivo"/>
+                        <p:commandButton value="Salvar" action="#{anoLetivoBean.addAnoLetivo}" icon="ui-icon-check" update=":panel_listaAnoLetivo"/>
 
                     </h:panelGrid>
 

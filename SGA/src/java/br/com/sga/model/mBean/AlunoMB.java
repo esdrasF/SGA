@@ -7,6 +7,7 @@ package br.com.sga.model.mBean;
 import br.com.sga.dao.DAOFactory;
 import br.com.sga.dao.HibernateDAOImp;
 import br.com.sga.model.vo.Aluno;
+import br.com.sga.model.vo.Pessoa;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -24,9 +25,12 @@ import javax.faces.context.FacesContext;
 public class AlunoMB implements Serializable, InterfaceManagedBean<Aluno> {
 
     private Aluno aluno;
+    private Pessoa pai, mae;
     private List<Aluno> listaAlunos;
 
     public AlunoMB() {
+        pai = new Pessoa();
+        mae = new Pessoa();
         aluno = new Aluno();
     }
 
@@ -47,6 +51,22 @@ public class AlunoMB implements Serializable, InterfaceManagedBean<Aluno> {
 
     public void setListaAlunos(List<Aluno> listaAlunos) {
         this.listaAlunos = listaAlunos;
+    }
+
+    public Pessoa getPai() {
+        return pai;
+    }
+
+    public void setPai(Pessoa pai) {
+        this.pai = pai;
+    }
+
+    public Pessoa getMae() {
+        return mae;
+    }
+
+    public void setMae(Pessoa mae) {
+        this.mae = mae;
     }
 
     public void addAluno() {

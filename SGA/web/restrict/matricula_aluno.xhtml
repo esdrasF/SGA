@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../resources/main.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="conteudo">
+
+        <p:panel header="Matricula aluno" style="border: 0px;">
+
+            <h:form id="form_matricula">
+
+                <h:inputHidden id="idAluno" value="#{alunoBean.aluno.id}"/>
+
+                <p:growl id="msg" showDetail="false" showSummary="true" autoUpdate="true"/>
+
+                <p:tabView id="tabView_matriculaAluno" >
+
+                    <p:tab title="Dados aluno">
+
+                        <h:panelGrid columns="2" cellpadding="5">
+
+                            <h:outputText value="Nome:"/>
+                            <p:inputText id="aluno_nome" value="#{alunoBean.aluno.nome}" size="60"/>
+
+                            <h:outputText value="Data nasc:"/>
+                            <p:calendar id="aluno_dataNasc" value="#{alunoBean.aluno.dataNasc}" 
+                                        mode="popup" showOn="button" 
+                                        navigator="true" pattern="dd/MM/yyyy"/>
+
+                            <h:outputText value="Sexo:"/>
+                            <p:selectOneMenu id="aluno_sexo" value="#{alunoBean.aluno.sexo}">
+                                <f:selectItem itemLabel="F" itemValue="F"/>
+                                <f:selectItem itemLabel="M" itemValue="M"/>
+                            </p:selectOneMenu>
+
+                            <h:outputText value="Naturalidade:"/>
+                            <p:inputText id="aluno_naturalidade" value="#{alunoBean.aluno.naturalidade}" size="30"/>
+
+                            <h:outputText value="Nacionalidade:"/>
+                            <p:inputText id="aluno_nacionalidade" value="#{alunoBean.aluno.nacionalidade}" size="30"/>
+
+                            <h:outputText value="Celular:"/>
+                            <p:inputMask id="aluno_celular" value="#{alunoBean.aluno.foneAluno}" mask="(99)9999-9999"/>
+
+                            <h:outputText value="E-mail:"/>
+                            <p:inputText id="aluno_email" value="#{alunoBean.aluno.email}" size="60"/>
+
+                        </h:panelGrid>
+
+                    </p:tab>
+
+                    <p:tab title="Filiação">
+                        <p:fieldset legend="Pai">
+
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Nome:"/>
+                                <p:inputText id="nome_pai" value="#{alunoBean.pai.nome}" size="60"/>
+
+                                <h:outputText value="C.P.F.:"/>
+                                <p:inputMask id="cpf_pai" value="#{alunoBean.pai.cpf}" mask="999.999.999-99"/>
+
+                                <h:outputText value="R.G.:"/>
+                                <p:inputText id="rg_pai" value="#{alunoBean.pai.rg}" size="30"/>
+                            </h:panelGrid>
+
+                        </p:fieldset>
+
+                        <br/>
+
+                        <p:fieldset legend="Mãe">
+
+                        </p:fieldset>
+
+
+                    </p:tab>
+
+                </p:tabView>
+
+            </h:form>
+
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>

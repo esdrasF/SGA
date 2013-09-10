@@ -12,6 +12,11 @@
         <p:panel id="panel_listaSerie" header="Serie" style="border: 0px;">
 
             <p:panel id="panel_formEditar" >
+                
+                <i><h:outputText value="Os campos com (*) são de preenchimento obrigatório."/></i>
+                
+                <p:separator />
+                
                 <h:form id="form_editar" >
 
                     <h:inputHidden id="idSerie" value="#{serieBean.serie.id}"/>
@@ -40,7 +45,7 @@
                             <f:selectItem itemLabel="Inativo" itemValue="I"/>
                         </p:selectOneMenu>
 
-                        <p:commandButton value="Salvar" action="#{serieBean.addSerie}" update=":panel_listaSerie"/>
+                        <p:commandButton value="Salvar" action="#{serieBean.addSerie}" icon="ui-icon-check" update=":panel_listaSerie"/>
 
                     </h:panelGrid>
 

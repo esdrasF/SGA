@@ -5,6 +5,7 @@
 package br.com.sga.model.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -96,7 +97,7 @@ public class Aluno implements Serializable {
     inverseJoinColumns =
     @JoinColumn(name = "TB_Pessoa_id"))
     @Cascade(CascadeType.ALL)
-    private List<Pessoa> filiacao;
+    private List<Pessoa> filiacao = new ArrayList<Pessoa>();
 
     public Aluno() {
     }

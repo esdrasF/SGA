@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../resources/main.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="conteudo">
+
+        <p:panel header="Cadastro de Pessoa" style="border:0px;">
+
+            <h:form id="form_cadastroPessoa">
+
+                <h:inputHidden id="idPessoa" value="#{pessoaBean.pessoa.id}"/>
+
+                <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
+
+                <p:tabView id="tabView_cadPessoa">
+
+                    <p:tab title="Dados pessoais">
+
+                        <h:panelGrid columns="2" cellpadding="5">
+
+                            <h:outputText value="Nome:"/>
+                            <p:inputText id="nome" value="#{pessoaBean.pessoa.nome}" size="60"/>
+
+                            <h:outputText value="Profissão:"/>
+                            <p:inputText id="profissao" value="#{pessoaBean.pessoa.profissao}" size="60"/>
+
+                            <h:outputText value="C.P.F.:"/>
+                            <p:inputMask id="cpf" value="#{pessoaBean.pessoa.cpf}" mask="999.999.999-99"/>
+
+                            <h:outputText value="R.G.:"/>
+                            <p:inputText id="rg" value="#{pessoaBean.pessoa.rg}" size="20"/>
+
+                            <h:outputText value="Fone 1:"/>
+                            <p:inputMask id="fone1" value="#{pessoaBean.pessoa.fone1}" mask="(99)9999-9999"/>
+
+                            <h:outputText value="Fone 2:"/>
+                            <p:inputMask id="fone2" value="#{pessoaBean.pessoa.fone2}" mask="(99)9999-9999"/>
+
+                            <h:outputText value="E-mail:"/>
+                            <p:inputText id="email" value="#{pessoaBean.pessoa.email}" size="60"/>
+
+                        </h:panelGrid>
+
+                    </p:tab>
+
+                    <p:tab title="Endereço">
+
+                        <h:panelGrid columns="2" cellpadding="5">
+
+                            <h:outputText value="Logradouro:"/>
+                            <p:inputText id="logradouro" value="#{pessoaBean.endereco.logradouro}" size="60"/>
+
+                            <h:outputText value="Complemento:"/>
+                            <p:inputText id="complemento" value="#{pessoaBean.endereco.complemento}" size="60"/>
+
+                            <h:outputText value="N°:"/>
+                            <p:inputText id="numero" value="#{pessoaBean.endereco.numero}" size="5"/>
+
+                            <h:outputText value="Bairro:"/>
+                            <p:inputText id="bairro" value="#{pessoaBean.endereco.bairro}" size="30"/>
+
+                            <h:outputText value="CEP:"/>
+                            <p:inputMask id="cep" value="#{pessoaBean.endereco.cep}" mask="99999-999" size="10"/>
+
+                            <h:outputText value="Cidade:"/>
+                            <p:inputText id="cidade" value="#{pessoaBean.endereco.cidade}" size="30"/>
+
+                            <h:outputText value="UF:"/>
+                            <p:inputText id="uf" value="#{pessoaBean.endereco.estado}" size="30"/>
+
+                        </h:panelGrid>
+
+                    </p:tab>
+
+                </p:tabView>
+                <br/>
+                <p:panel>
+
+                    <h:panelGrid columns="3">
+                        <p:commandButton value="Salvar" icon="ui-icon-check" actionListener="#{pessoaBean.addPessoa}"/>
+                        <p:commandButton value="Limpar" icon="ui-icon-triangle-1-nw" actionListener="#"/>
+                        <p:commandButton value="Cancelar" icon="ui-icon-close" actionListener="#"/>
+                    </h:panelGrid>
+                </p:panel>
+
+            </h:form>
+
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>

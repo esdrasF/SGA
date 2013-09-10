@@ -29,7 +29,7 @@
                               padding-left: 15px; "/>  
             </p:layoutUnit>  
 
-            <p:layoutUnit position="south" size="70" style="text-align: center; padding-top: 14px;">  
+            <p:layoutUnit position="south" size="60" style="text-align: center; padding-top: 14px;">  
                 <h:outputText value="SGA - Sistema de Gerênciamento Acadêmico" /> <br/> 
                 <h:outputText value="2013 (C) - Todos os direitos reservados." />  
             </p:layoutUnit>  
@@ -41,17 +41,14 @@
                             <p:menuitem value="Serie" outcome="../restrict/listar_serie.xhtml"/>
                             <p:menuitem value="Ano Letivo" outcome="../restrict/listar_anoLetivo.xhtml"/>
                             <p:menuitem value="Aluno" outcome="../restrict/listar_aluno.xhtml"/>
-                            
+                            <p:menuitem value="Pessoa" outcome="../restrict/cadastro_pessoa.xhtml"/>
                         </p:submenu>
-                        
-                        
-                        
                     </p:panelMenu>
                 </h:form>
             </p:layoutUnit>
 
             <p:layoutUnit position="east" size="230" collapsed="true" collapseSize="50" collapsible="true" header="Útil" style="text-align: center;">  
-                <p:calendar mode="inline" />
+                <p:calendar mode="inline" locale="br"/>
             </p:layoutUnit>
 
             <p:layoutUnit position="center" style="color: #ffffff; font-size: 13px;">  
