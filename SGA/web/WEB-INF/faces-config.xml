@@ -10,5 +10,6 @@
     <lifecycle>
         <phase-listener>br.com.sga.util.PhaseListenerSGA</phase-listener>
     </lifecycle>
+
     
 </faces-config>

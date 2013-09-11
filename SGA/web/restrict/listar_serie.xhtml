@@ -12,11 +12,11 @@
         <p:panel id="panel_listaSerie" header="Serie" style="border: 0px;">
 
             <p:panel id="panel_formEditar" >
-                
+
                 <i><h:outputText value="Os campos com (*) são de preenchimento obrigatório."/></i>
-                
+
                 <p:separator />
-                
+
                 <h:form id="form_editar" >
 
                     <h:inputHidden id="idSerie" value="#{serieBean.serie.id}"/>
@@ -45,10 +45,15 @@
                             <f:selectItem itemLabel="Inativo" itemValue="I"/>
                         </p:selectOneMenu>
 
-                        <p:commandButton value="Salvar" action="#{serieBean.addSerie}" icon="ui-icon-check" update=":panel_listaSerie"/>
-
                     </h:panelGrid>
-
+                    <br/>
+                    <p:panel id="panel_botoes">
+                        <h:panelGrid columns="2">
+                            <p:commandButton value="Salvar" action="#{serieBean.addSerie}" 
+                                             icon="ui-icon-check" update=":panel_listaSerie"/>
+                            <p:button value="Cancelar" outcome="home.xhtml" icon="ui-icon-close"/>
+                        </h:panelGrid>
+                    </p:panel>
                 </h:form>
             </p:panel>
 
@@ -56,7 +61,7 @@
                 <div style="margin-top: 6px;">
 
                     <p:dataTable id="tabela_series" var="serie" value="#{serieBean.series}" 
-                                 paginator="true" rows="7" emptyMessage="Nenhum resultado foi encontrado."
+                                 paginator="true" rows="5" emptyMessage="Nenhum resultado foi encontrado."
                                  style="
                                  margin: 0 auto; 
                                  width: 500px; 
@@ -101,12 +106,12 @@
                             <f:facet name="header">
                                 <h:outputText value="Excluir"/>
                             </f:facet>
-                            
+
                             <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 1px;" action="#{serieBean.removerSerie}" update=":form_listaSerie">
                                 <f:setPropertyActionListener value="#{serie}" target="#{serieBean.serie}"/>
                             </p:commandButton>
                         </p:column>
-                       
+
                         <f:facet name="footer">
                             <h:outputText value="#{serieBean.series.size()} registros recuperados."/>
                         </f:facet>

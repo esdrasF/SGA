@@ -12,11 +12,11 @@
         <p:panel id="panel_listaAnoLetivo" header="Ano Letivo" style="border: 0px;">
 
             <p:panel id="panel_formEditar" >
-                
-               <i><h:outputText value="Os campos com (*) são de preenchimento obrigatório."/></i>
-               
-               <p:separator />
-                
+
+                <i><h:outputText value="Os campos com (*) são de preenchimento obrigatório."/></i>
+
+                <p:separator />
+
                 <h:form id="form_editar" >
 
                     <h:inputHidden id="idAnoLetivo" value="#{anoLetivoBean.anoLetivo.id}"/>
@@ -29,9 +29,14 @@
                         <p:inputText id="ano" value="#{anoLetivoBean.anoLetivo.ano}" 
                                      required="true" requiredMessage="Campo ano é obrigatório." size="14" maxlength="4"/>
 
-                        <p:commandButton value="Salvar" action="#{anoLetivoBean.addAnoLetivo}" icon="ui-icon-check" update=":panel_listaAnoLetivo"/>
-
                     </h:panelGrid>
+
+                    <p:panel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <p:commandButton value="Salvar" action="#{anoLetivoBean.addAnoLetivo}" icon="ui-icon-check" update=":panel_listaAnoLetivo"/>
+                            <p:button value="Cancelar" outcome="home.xhtml" icon="ui-icon-close"/>
+                        </h:panelGrid>
+                    </p:panel>
 
                 </h:form>
             </p:panel>
@@ -71,13 +76,13 @@
                             <f:facet name="header">
                                 <h:outputText value="Excluir"/>
                             </f:facet>
-                            
+
                             <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 1px;" 
                                              action="#{anoLetivoBean.removerAnoLetivo}" update=":form_listaAnoLetivo">
                                 <f:setPropertyActionListener value="#{ano}" target="#{anoLetivoBean.anoLetivo}"/>
                             </p:commandButton>
                         </p:column>
-                       
+
                         <f:facet name="footer">
                             <h:outputText value="#{anoLetivoBean.listaAnoLetivo.size()} registros recuperados."/>
                         </f:facet>

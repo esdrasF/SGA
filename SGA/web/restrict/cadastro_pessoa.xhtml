@@ -23,25 +23,32 @@
                         <h:panelGrid columns="2" cellpadding="5">
 
                             <h:outputText value="Nome:"/>
-                            <p:inputText id="nome" value="#{pessoaBean.pessoa.nome}" size="60"/>
+                            <p:inputText id="nome" value="#{pessoaBean.pessoa.nome}" size="60" 
+                                         required="true" requiredMessage="O campo [NOME] é obrigatório."
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
 
                             <h:outputText value="Profissão:"/>
-                            <p:inputText id="profissao" value="#{pessoaBean.pessoa.profissao}" size="60"/>
+                            <p:inputText id="profissao" value="#{pessoaBean.pessoa.profissao}" size="60"
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
 
                             <h:outputText value="C.P.F.:"/>
-                            <p:inputMask id="cpf" value="#{pessoaBean.pessoa.cpf}" mask="999.999.999-99"/>
+                            <p:inputMask id="cpf" value="#{pessoaBean.pessoa.cpf}" mask="999.999.999-99"
+                                         required="true" requiredMessage="O campo [CPF] é obrigatório."/>
 
                             <h:outputText value="R.G.:"/>
-                            <p:inputText id="rg" value="#{pessoaBean.pessoa.rg}" size="20"/>
+                            <p:inputText id="rg" value="#{pessoaBean.pessoa.rg}" size="20"
+                                         required="true" requiredMessage="O campo [RG] é obrigatório."/>
 
                             <h:outputText value="Fone 1:"/>
-                            <p:inputMask id="fone1" value="#{pessoaBean.pessoa.fone1}" mask="(99)9999-9999"/>
+                            <p:inputMask id="fone1" value="#{pessoaBean.pessoa.fone1}" mask="(99)9999-9999"
+                                         required="true" requiredMessage="O campo [FONE 1] é obrigatório."/>
 
                             <h:outputText value="Fone 2:"/>
                             <p:inputMask id="fone2" value="#{pessoaBean.pessoa.fone2}" mask="(99)9999-9999"/>
 
                             <h:outputText value="E-mail:"/>
-                            <p:inputText id="email" value="#{pessoaBean.pessoa.email}" size="60"/>
+                            <p:inputText id="email" value="#{pessoaBean.pessoa.email}" size="60"
+                                         required="true" requiredMessage="O campo [E-MAIL] é obrigatório."/>
 
                         </h:panelGrid>
 
@@ -52,25 +59,36 @@
                         <h:panelGrid columns="2" cellpadding="5">
 
                             <h:outputText value="Logradouro:"/>
-                            <p:inputText id="logradouro" value="#{pessoaBean.endereco.logradouro}" size="60"/>
+                            <p:inputText id="logradouro" value="#{pessoaBean.endereco.logradouro}" size="60"
+                                         required="true" requiredMessage="O campo [LOGRADOURO] é obrigatório."
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
 
                             <h:outputText value="Complemento:"/>
-                            <p:inputText id="complemento" value="#{pessoaBean.endereco.complemento}" size="60"/>
+                            <p:inputText id="complemento" value="#{pessoaBean.endereco.complemento}" size="60"
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
 
                             <h:outputText value="N°:"/>
-                            <p:inputText id="numero" value="#{pessoaBean.endereco.numero}" size="5"/>
+                            <p:inputText id="numero" value="#{pessoaBean.endereco.numero}" size="5"
+                                         required="true" requiredMessage="O campo [Nº] é obrigatório."/>
 
                             <h:outputText value="Bairro:"/>
-                            <p:inputText id="bairro" value="#{pessoaBean.endereco.bairro}" size="30"/>
+                            <p:inputText id="bairro" value="#{pessoaBean.endereco.bairro}" size="30"
+                                         required="true" requiredMessage="O campo [BAIRRO] é obrigatório."
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
 
                             <h:outputText value="CEP:"/>
-                            <p:inputMask id="cep" value="#{pessoaBean.endereco.cep}" mask="99999-999" size="10"/>
+                            <p:inputMask id="cep" value="#{pessoaBean.endereco.cep}" mask="99999-999" size="10"
+                                         required="true" requiredMessage="O campo [CEP] é obrigatório."/>
 
                             <h:outputText value="Cidade:"/>
-                            <p:inputText id="cidade" value="#{pessoaBean.endereco.cidade}" size="30"/>
+                            <p:inputText id="cidade" value="#{pessoaBean.endereco.cidade}" size="30"
+                                         required="true" requiredMessage="O campo [CIDADE] é obrigatório."
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
 
                             <h:outputText value="UF:"/>
-                            <p:inputText id="uf" value="#{pessoaBean.endereco.estado}" size="30"/>
+                            <p:inputText id="uf" value="#{pessoaBean.endereco.estado}" size="30"
+                                         required="true" requiredMessage="O campo [UF] é obrigatório."
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
 
                         </h:panelGrid>
 
@@ -81,9 +99,11 @@
                 <p:panel>
 
                     <h:panelGrid columns="3">
-                        <p:commandButton value="Salvar" icon="ui-icon-check" actionListener="#{pessoaBean.addPessoa}"/>
-                        <p:commandButton value="Limpar" icon="ui-icon-triangle-1-nw" actionListener="#"/>
-                        <p:commandButton value="Cancelar" icon="ui-icon-close" actionListener="#"/>
+                        <p:commandButton value="Salvar" icon="ui-icon-check" actionListener="#{pessoaBean.addPessoa}" 
+                                         update=":form_cadastroPessoa"/>
+                        <p:commandButton value="Limpar" icon="ui-icon-triangle-1-nw" 
+                                         actionListener="#{pessoaBean.limparCampos}" update=":form_cadastroPessoa"/>
+                        <p:button outcome="home.xhtml" value="Sair" icon="ui-icon-circle-arrow-w"/>
                     </h:panelGrid>
                 </p:panel>
 

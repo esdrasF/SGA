@@ -6,6 +6,7 @@ package br.com.sga.model.mBean;
 
 import br.com.sga.dao.DAOFactory;
 import br.com.sga.dao.HibernateDAOImp;
+import br.com.sga.model.bo.PessoaBO;
 import br.com.sga.model.vo.Endereco;
 import br.com.sga.model.vo.Pessoa;
 import java.io.Serializable;
@@ -72,16 +73,29 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
 
     public String addPessoa() {
         getPessoa().setEndereco(endereco);
+
+        PessoaBO pbo = new PessoaBO();
+
         if (pessoa.getId() == null || pessoa.getId() == 0) {
-            inserir();
-            setPessoa(new Pessoa());
-            setEndereco(new Endereco());
+            if (pbo.validarCPF(pessoa)) {
+                inserir();
+                setPessoa(new Pessoa());
+                setEndereco(new Endereco());
+            } else {
+                setMessage("CPF inválido.", FacesMessage.SEVERITY_WARN);
+                return "";
+            }
         } else {
             atualizar();
             setPessoa(new Pessoa());
             setEndereco(new Endereco());
         }
-        return "home.xhtml";
+        return "/restrict/home.xhtml";
+    }
+
+    public void limparCampos() {
+        setPessoa(new Pessoa());
+        setEndereco(new Endereco());
     }
 
     private void inserir() {
