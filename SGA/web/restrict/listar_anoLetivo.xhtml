@@ -30,11 +30,11 @@
                                      required="true" requiredMessage="Campo ano é obrigatório." size="14" maxlength="4"/>
 
                     </h:panelGrid>
-
+                    <br/>
                     <p:panel>
-                        <h:panelGrid columns="2" cellpadding="5">
+                        <h:panelGrid columns="2">
                             <p:commandButton value="Salvar" action="#{anoLetivoBean.addAnoLetivo}" icon="ui-icon-check" update=":panel_listaAnoLetivo"/>
-                            <p:button value="Cancelar" outcome="home.xhtml" icon="ui-icon-close"/>
+                            <p:button value="Sair" outcome="home.xhtml" icon="ui-icon-home"/>
                         </h:panelGrid>
                     </p:panel>
 

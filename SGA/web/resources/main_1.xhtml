@@ -38,10 +38,10 @@
                 <h:form id="menu">
                     <p:panelMenu id="menu" style="width: 200px;">
                         <p:submenu label="Cadastros gerais">
-                            <p:menuitem value="Serie" url="../restrict/listar_serie.xhtml"/>
-                            <p:menuitem value="Ano Letivo" url="../restrict/listar_anoLetivo.xhtml"/>
-                            <p:menuitem value="Aluno" url="../restrict/listar_aluno.xhtml"/>
-                            <p:menuitem value="Pessoa" url="../restrict/listar_pessoa.xhtml"/>
+                            <p:menuitem value="Serie" outcome="../restrict/listar_serie.xhtml"/>
+                            <p:menuitem value="Ano Letivo" outcome="../restrict/listar_anoLetivo.xhtml"/>
+                            <p:menuitem value="Aluno" outcome="../restrict/listar_aluno.xhtml"/>
+                            <p:menuitem value="Pessoa" outcome="../restrict/cadastro_pessoa.xhtml"/>
                         </p:submenu>
                     </p:panelMenu>
                 </h:form>
@@ -52,9 +52,16 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="center" style="color: #ffffff; font-size: 13px;">  
-                <ui:insert name="conteudo">
-                    
-                </ui:insert>
+                <h:form id="form_conteudo">
+                    <p:tabView id="tabView_conteudo">
+
+                        <ui:insert name="conteudo">
+                            
+                        </ui:insert>
+                        
+                    </p:tabView>
+                </h:form>
+
             </p:layoutUnit>  
 
         </p:layout>

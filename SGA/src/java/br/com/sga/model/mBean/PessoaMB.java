@@ -15,7 +15,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -28,6 +30,7 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
     private Pessoa pessoa;
     private Endereco endereco;
     private List<Pessoa> listaPessoas;
+    private boolean renderedPanelNovoCadastro = false;
 
     public PessoaMB() {
         endereco = new Endereco();
@@ -61,6 +64,14 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
         this.endereco = endereco;
     }
 
+    public boolean isRenderedPanelNovoCadastro() {
+        return renderedPanelNovoCadastro;
+    }
+
+    public void setRenderedPanelNovoCadastro(boolean renderedPanelNovoCadastro) {
+        this.renderedPanelNovoCadastro = renderedPanelNovoCadastro;
+    }
+
     @Override
     public HibernateDAOImp getDAO() {
         return DAOFactory.instance(DAOFactory.FACTORY_IMPLEMENTATION).getPessoaDAOImp();
@@ -71,7 +82,7 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, msg, null));
     }
 
-    public String addPessoa() {
+    public void addPessoa() {
         getPessoa().setEndereco(endereco);
 
         PessoaBO pbo = new PessoaBO();
@@ -81,16 +92,33 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
                 inserir();
                 setPessoa(new Pessoa());
                 setEndereco(new Endereco());
+                setListaPessoas(getDAO().getEntityes());
+                setRenderedPanelNovoCadastro(false);
             } else {
                 setMessage("CPF inválido.", FacesMessage.SEVERITY_WARN);
-                return "";
             }
         } else {
             atualizar();
             setPessoa(new Pessoa());
             setEndereco(new Endereco());
+            setListaPessoas(getDAO().getEntityes());
+            setRenderedPanelNovoCadastro(false);
         }
-        return "/restrict/home.xhtml";
+    }
+
+    public void excluirPessoa() {
+        getDAO().remove(pessoa);
+        setPessoa(new Pessoa());
+        setListaPessoas(null);
+        setMessage("Registro excluido com sucesso.", FacesMessage.SEVERITY_INFO);
+    }
+    
+    public void cancelarNovoCadastro(){
+        setRenderedPanelNovoCadastro(false);
+    }
+    
+    public void novoCadastro() {
+        setRenderedPanelNovoCadastro(true);
     }
 
     public void limparCampos() {

@@ -98,12 +98,12 @@
                 <br/>
                 <p:panel>
 
-                    <h:panelGrid columns="3">
-                        <p:commandButton value="Salvar" icon="ui-icon-check" actionListener="#{pessoaBean.addPessoa}" 
-                                         update=":form_cadastroPessoa"/>
+                    <h:panelGrid columns="4">
+                        <p:button id="botao_voltar" value="Voltar" icon="ui-icon-circle-arrow-w" outcome="listar_pessoa.xhtml"/>
+                        <p:commandButton value="Salvar" icon="ui-icon-check" actionListener="#{pessoaBean.addPessoa}" update="form_cadastroPessoa"/>
                         <p:commandButton value="Limpar" icon="ui-icon-triangle-1-nw" 
                                          actionListener="#{pessoaBean.limparCampos}" update=":form_cadastroPessoa"/>
-                        <p:button outcome="home.xhtml" value="Sair" icon="ui-icon-circle-arrow-w"/>
+                        <p:button outcome="home.xhtml" value="Sair" icon="ui-icon-home"/>
                     </h:panelGrid>
                 </p:panel>
 
