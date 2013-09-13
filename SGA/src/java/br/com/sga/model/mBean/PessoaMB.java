@@ -14,27 +14,24 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.component.UIPanel;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 /**
  *
  * @author DIGITACAOFUND
  */
 @ManagedBean(name = "pessoaBean")
-@RequestScoped
+@SessionScoped
 public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
 
     private Pessoa pessoa;
-    private Endereco endereco;
     private List<Pessoa> listaPessoas;
     private boolean renderedPanelNovoCadastro = false;
 
     public PessoaMB() {
-        endereco = new Endereco();
         pessoa = new Pessoa();
+        pessoa.setEndereco(new Endereco());
     }
 
     public Pessoa getPessoa() {
@@ -56,14 +53,6 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
         this.listaPessoas = listaPessoas;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
     public boolean isRenderedPanelNovoCadastro() {
         return renderedPanelNovoCadastro;
     }
@@ -83,26 +72,27 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
     }
 
     public void addPessoa() {
-        getPessoa().setEndereco(endereco);
 
         PessoaBO pbo = new PessoaBO();
 
-        if (pessoa.getId() == null || pessoa.getId() == 0) {
-            if (pbo.validarCPF(pessoa)) {
+        if (pbo.validarCPF(pessoa)) {
+            
+            if (pessoa.getId() == null || pessoa.getId() == 0) {
                 inserir();
                 setPessoa(new Pessoa());
-                setEndereco(new Endereco());
-                setListaPessoas(getDAO().getEntityes());
+                getPessoa().setEndereco(new Endereco());
+                setListaPessoas(null);
                 setRenderedPanelNovoCadastro(false);
             } else {
-                setMessage("CPF inválido.", FacesMessage.SEVERITY_WARN);
+                atualizar();
+                setPessoa(new Pessoa());
+                getPessoa().setEndereco(new Endereco());
+                setListaPessoas(null);
+                setRenderedPanelNovoCadastro(false);
             }
+            
         } else {
-            atualizar();
-            setPessoa(new Pessoa());
-            setEndereco(new Endereco());
-            setListaPessoas(getDAO().getEntityes());
-            setRenderedPanelNovoCadastro(false);
+            setMessage("CPF inválido.", FacesMessage.SEVERITY_WARN);
         }
     }
 
@@ -112,18 +102,22 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
         setListaPessoas(null);
         setMessage("Registro excluido com sucesso.", FacesMessage.SEVERITY_INFO);
     }
-    
-    public void cancelarNovoCadastro(){
-        setRenderedPanelNovoCadastro(false);
+
+    public String editarPessoa() {
+        return "/restrict/cadastro_pessoa.xhtml";
+    }
+
+    public String novoCadastro() {
+        return "/restrict/cadastro_pessoa.xhtml";
     }
     
-    public void novoCadastro() {
-        setRenderedPanelNovoCadastro(true);
+    public void cancelarNovoCadastro() {
+        setRenderedPanelNovoCadastro(false);
     }
 
     public void limparCampos() {
         setPessoa(new Pessoa());
-        setEndereco(new Endereco());
+        getPessoa().setEndereco(new Endereco());
     }
 
     private void inserir() {
@@ -132,7 +126,7 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
     }
 
     private void atualizar() {
-        getDAO().save(pessoa);
+        getDAO().update(pessoa);
         setMessage("Pessoa atualizada com sucesso.", FacesMessage.SEVERITY_INFO);
     }
 }
