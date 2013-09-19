@@ -4,8 +4,12 @@
  */
 package br.com.sga.model.bo;
 
+import br.com.sga.dao.DAOFactory;
+import br.com.sga.dao.imp.PessoaDAOImp;
 import br.com.sga.model.vo.Pessoa;
 import java.util.ArrayList;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.DetachedCriteria;
 
 /**
  *
@@ -13,11 +17,16 @@ import java.util.ArrayList;
  */
 public class PessoaBO {
     
+    private PessoaDAOImp pessoaDAO;
+    
     private String cpfOriginal;
     private String cpfCalculado;
     ArrayList<String> cpfs = new ArrayList<String>();
     
     public PessoaBO() {
+        
+        pessoaDAO = DAOFactory.instance(DAOFactory.FACTORY_IMPLEMENTATION).getPessoaDAOImp();
+        
         cpfs.add("111.111.111-11");
         cpfs.add("222.222.222-22");
         cpfs.add("333.333.333-33");
@@ -40,9 +49,22 @@ public class PessoaBO {
             cpf = calcularDigitoVerificador1(cpf);
             cpf = calcularDigitoVerificador2(cpf);
             cpfCalculado = transformarCpfString(cpf);
+            
             return comparaCpf();
         }
         return false;
+    }
+    
+    public boolean isExistCpfDB(Pessoa pessoa) {
+        
+        boolean retorno = false;
+        Pessoa p = new Pessoa();
+        p = pessoaDAO.selectByCPF(pessoa);
+        
+        if(p.getId() != null || p.getId() != 0) {
+            retorno = true;
+        }
+        return retorno;
     }
     
     private ArrayList limpaCaracteresCPF(String s) {

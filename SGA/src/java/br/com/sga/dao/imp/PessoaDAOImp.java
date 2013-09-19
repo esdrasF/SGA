@@ -6,6 +6,7 @@ package br.com.sga.dao.imp;
 
 import br.com.sga.dao.HibernateDAOImp;
 import br.com.sga.model.vo.Pessoa;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -15,5 +16,10 @@ public class PessoaDAOImp extends HibernateDAOImp<Pessoa, Integer> {
 
     public PessoaDAOImp() {
         super();
+    }
+    
+    public Pessoa selectByCPF(Pessoa p) {
+        return (Pessoa) getSession().createCriteria(Pessoa.class)
+                .add(Restrictions.eq("cpf", p.getCpf())).uniqueResult();
     }
 }

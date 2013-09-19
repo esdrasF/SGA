@@ -76,21 +76,25 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
         PessoaBO pbo = new PessoaBO();
 
         if (pbo.validarCPF(pessoa)) {
-            
-            if (pessoa.getId() == null || pessoa.getId() == 0) {
-                inserir();
-                setPessoa(new Pessoa());
-                getPessoa().setEndereco(new Endereco());
-                setListaPessoas(null);
-                setRenderedPanelNovoCadastro(false);
+
+            if (!pbo.isExistCpfDB(pessoa)) {
+                
+                if (pessoa.getId() == null || pessoa.getId() == 0) {
+                    inserir();
+                    setPessoa(new Pessoa());
+                    getPessoa().setEndereco(new Endereco());
+                    setListaPessoas(null);
+                    setRenderedPanelNovoCadastro(false);
+                } else {
+                    atualizar();
+                    setPessoa(new Pessoa());
+                    getPessoa().setEndereco(new Endereco());
+                    setListaPessoas(null);
+                    setRenderedPanelNovoCadastro(false);
+                }
             } else {
-                atualizar();
-                setPessoa(new Pessoa());
-                getPessoa().setEndereco(new Endereco());
-                setListaPessoas(null);
-                setRenderedPanelNovoCadastro(false);
+                setMessage("CPF já cadastrado na base de dados.", FacesMessage.SEVERITY_WARN);
             }
-            
         } else {
             setMessage("CPF inválido.", FacesMessage.SEVERITY_WARN);
         }
@@ -108,9 +112,10 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
     }
 
     public String novoCadastro() {
+        setPessoa(new Pessoa());
         return "/restrict/cadastro_pessoa.xhtml";
     }
-    
+
     public void cancelarNovoCadastro() {
         setRenderedPanelNovoCadastro(false);
     }

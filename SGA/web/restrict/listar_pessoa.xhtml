@@ -19,36 +19,58 @@
 
                     <p:dataTable id="tabela_pessoa" var="pessoa" value="#{pessoaBean.listaPessoas}" 
                                  paginator="true" rows="10" emptyMessage="Nenhum resultado foi encontrado."
-                                 style="
-                                 margin: 0 auto; 
-                                 width: 600px;
-                                 text-align: center;">
+                                 style="text-align: center;">
 
                         <f:facet name="header">
                             <h:outputText value="Lista de pessoas"/>
                         </f:facet>
 
-                        <p:column style="width: 10%;">
+                        <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}">
                             <f:facet name="header">
                                 <h:outputText value="Código"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.id}"/>
                         </p:column>
 
-                        <p:column style="width: 75%; text-align: left;">
-                            <f:facet name="header">
-                                <h:outputText value="Nome"/>
-                            </f:facet>
-                            <h:outputText value="#{pessoa.nome}"/>
+                        <p:column headerText="Nome" sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}">
+                            <h:outputText value="#{pessoa.nome}" />
                         </p:column>
 
-                        <p:column >
+                        <p:column filterBy="#{pessoa.cpf}">
                             <f:facet name="header">
                                 <h:outputText value="CPF"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.cpf}"/>
                         </p:column>
 
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="RG"/>
+                            </f:facet>
+                            <h:outputText value="#{pessoa.rg}"/>
+                        </p:column>
+                        
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Fone 1"/>
+                            </f:facet>
+                            <h:outputText value="#{pessoa.fone1}"/>
+                        </p:column>
+                        
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="Fone 2"/>
+                            </f:facet>
+                            <h:outputText value="#{pessoa.fone2}"/>
+                        </p:column>
+                       
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="E-mail"/>
+                            </f:facet>
+                            <h:outputText value="#{pessoa.email}"/>
+                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Editar"/>
