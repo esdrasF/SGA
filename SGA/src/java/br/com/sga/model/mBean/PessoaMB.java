@@ -77,24 +77,24 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
 
         if (pbo.validarCPF(pessoa)) {
 
-            if (!pbo.isExistCpfDB(pessoa)) {
-                
-                if (pessoa.getId() == null || pessoa.getId() == 0) {
+            if (pessoa.getId() == null || pessoa.getId() == 0) {
+                if (!pbo.isExistCpfDB(pessoa)) {
                     inserir();
                     setPessoa(new Pessoa());
                     getPessoa().setEndereco(new Endereco());
                     setListaPessoas(null);
                     setRenderedPanelNovoCadastro(false);
                 } else {
-                    atualizar();
-                    setPessoa(new Pessoa());
-                    getPessoa().setEndereco(new Endereco());
-                    setListaPessoas(null);
-                    setRenderedPanelNovoCadastro(false);
+                    setMessage("CPF já cadastrado na base de dados.", FacesMessage.SEVERITY_WARN);
                 }
             } else {
-                setMessage("CPF já cadastrado na base de dados.", FacesMessage.SEVERITY_WARN);
+                atualizar();
+                setPessoa(new Pessoa());
+                getPessoa().setEndereco(new Endereco());
+                setListaPessoas(null);
+                setRenderedPanelNovoCadastro(false);
             }
+
         } else {
             setMessage("CPF inválido.", FacesMessage.SEVERITY_WARN);
         }
