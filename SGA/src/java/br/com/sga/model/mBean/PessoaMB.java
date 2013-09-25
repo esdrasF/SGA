@@ -70,7 +70,7 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
     public void setMessage(String msg, Severity severity) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, msg, null));
     }
-
+    
     public void addPessoa() {
 
         PessoaBO pbo = new PessoaBO();
