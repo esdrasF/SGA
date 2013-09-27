@@ -12,11 +12,9 @@
         <p:panel id="panel_listaAluno" header="Aluno" style="border: 0px;">
 
             <h:form id="form_listaAluno">
-                
+
                 <h:inputHidden id="idAluno" value="#{alunoBean.aluno.id}"/>
-                
-                <p:button id="botao_novoAluno" value="Novo Aluno" icon="ui-icon-star"/>
-                
+
                 <div style="margin-top: 6px;">
 
                     <p:dataTable id="tabela_aluno" var="aluno" value="#{alunoBean.listaAlunos}" 
@@ -30,7 +28,7 @@
                         <f:facet name="header">
                             <h:outputText value="Tabela de alunos"/>
                         </f:facet>
-                        
+
                         <p:column style="width: 10%;">
                             <f:facet name="header">
                                 <h:outputText value="Código"/>
@@ -44,28 +42,28 @@
                             </f:facet>
                             <h:outputText value="#{aluno.nome}"/>
                         </p:column>
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Série/ano"/>
                             </f:facet>
                             <h:outputText value="#{aluno.serie.serie}"/>
                         </p:column>
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Turma"/>
                             </f:facet>
                             <h:outputText />
                         </p:column>
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Status"/>
                             </f:facet>
                             <h:outputText value="#{aluno.status}"/>
                         </p:column>
-                        
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="Editar"/>
@@ -79,19 +77,26 @@
                             <f:facet name="header">
                                 <h:outputText value="Excluir"/>
                             </f:facet>
-                            
+
                             <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 1px;" 
                                              action="#" update=":form_listaAluno">
                                 <f:setPropertyActionListener value="#{aluno}" target="#{alunoBean.aluno}"/>
                             </p:commandButton>
                         </p:column>
-                       
+
                         <f:facet name="footer">
                             <h:outputText value="#{alunoBean.listaAlunos.size()} registros recuperados."/>
                         </f:facet>
-                        
+
                     </p:dataTable>
                 </div>
+                <br/>
+                <p:panel id="pabel_botoes">
+                    <h:panelGrid columns="4">
+                        <p:commandButton id="botao_novoCadastro" value="Novo" icon="ui-icon-star"
+                                          ajax="false"/>
+                    </h:panelGrid>
+                </p:panel> 
             </h:form>
 
         </p:panel>
