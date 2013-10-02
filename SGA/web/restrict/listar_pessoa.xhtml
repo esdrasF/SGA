@@ -19,21 +19,24 @@
 
                     <p:dataTable id="tabela_pessoa" var="pessoa" value="#{pessoaBean.listaPessoas}" 
                                  paginator="true" rows="10" emptyMessage="Nenhum resultado foi encontrado."
-                                 style="text-align: center;">
+                                 style="text-align: center;" >
 
                         <f:facet name="header">
                             <h:outputText value="Lista de pessoas"/>
                         </f:facet>
 
-                        <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}">
+                        <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}"> 
                             <f:facet name="header">
                                 <h:outputText value="Código"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.id}"/>
                         </p:column>
 
-                        <p:column headerText="Nome" sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}">
-                            <h:outputText value="#{pessoa.nome}" />
+                        <p:column sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}">
+                            <f:facet name="header">
+                                <h:outputText value="Nome"/>
+                            </f:facet>
+                            <h:outputText value="#{pessoa.nome}"/>
                         </p:column>
 
                         <p:column filterBy="#{pessoa.cpf}">
@@ -43,13 +46,6 @@
                             <h:outputText value="#{pessoa.cpf}"/>
                         </p:column>
 
-                        <p:column >
-                            <f:facet name="header">
-                                <h:outputText value="RG"/>
-                            </f:facet>
-                            <h:outputText value="#{pessoa.rg}"/>
-                        </p:column>
-                        
                         <p:column >
                             <f:facet name="header">
                                 <h:outputText value="Fone 1"/>

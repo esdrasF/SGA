@@ -4,52 +4,47 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../resources/main.xhtml"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:define name="conteudo">
 
         <p:panel header="Cadastro de Aluno" style="border:0px;">
 
-            <h:form id="form_cadastroAluno">
+            <h:form id="form_cadastroAluno" style="font-size: 12px;">
 
                 <h:inputHidden id="idAluno" value="#{alunoBean.aluno.id}"/>
 
                 <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
 
-                <p:tabView id="tabView_cadAluno">
+                <p:wizard backLabel="Anterior" nextLabel="Próximo" >
 
-                    <!--ALUNO-->
-                    
                     <p:tab title="Dados pessoais">
 
-                        <h:panelGrid columns="2" cellpadding="5">
-                        </h:panelGrid>
+                        <p:panel id="panel_dadosPessoais" header="">
+
+                            <h:panelGrid columns="2" cellpadding="5">
+                                
+                                <h:outputText value="Nome: *"/>
+                                <p:inputText id="nome_aluno" value="#{alunoBean.aluno.nome}" size="80"/>
+                                
+                                <h:outputText value="Sexo:"/>
+                                <p:selectOneMenu id="sexo_aluno" value="#{alunoBean.aluno.sexo}">
+                                    <f:selectItem itemLabel="MASCULINO" itemValue="M"/>
+                                    <f:selectItem itemLabel="FEMININO" itemValue="F"/>
+                                </p:selectOneMenu>
+                                
+                                <h:outputText value="Data Nasc: *"/>
+                                <p:calendar id="dataNasc_aluno" value="#{alunoBean.aluno.dataNasc}"
+                                            showOn="button" pattern="dd/MM/yyyy" navigator="true" locale="pt"/>
+                                
+                            </h:panelGrid>
+
+                        </p:panel>
 
                     </p:tab>
-                    
-                    <!--ENDEREÇO-->
-                    
-                    <p:tab title="Endereço">
 
-                        <h:panelGrid columns="2" cellpadding="5">
-                        </h:panelGrid>
-
-                    </p:tab>
-
-                </p:tabView>
-                <br/>
-                
-                <!--BOTÕES-->
-                
-                <p:panel>
-
-                    <h:panelGrid columns="4">
-                        <p:button id="botao_voltar" value="Voltar" icon="ui-icon-circle-arrow-w" outcome="listar_aluno.xhtml"/>
-                        <p:commandButton id="botao_salvar" value="Salvar" icon="ui-icon-check" update="form_cadastroAluno"/>
-                        <p:commandButton value="Limpar" icon="ui-icon-triangle-1-nw" />
-                        <p:button id="botao_sair" outcome="home.xhtml" value="Sair" icon="ui-icon-home"/>
-                    </h:panelGrid>
-                </p:panel>
+                </p:wizard>
 
             </h:form>
 
