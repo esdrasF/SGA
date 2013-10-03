@@ -15,35 +15,359 @@
 
                 <h:inputHidden id="idAluno" value="#{alunoBean.aluno.id}"/>
 
-                <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
+                <p:growl autoUpdate="false" showDetail="false" showSummary="true"/>
 
                 <p:wizard backLabel="Anterior" nextLabel="Próximo" >
+
+
+                    <!--
+                    DADOS PESSOAIS
+                    -->
 
                     <p:tab title="Dados pessoais">
 
                         <p:panel id="panel_dadosPessoais" header="">
 
-                            <h:panelGrid columns="2" cellpadding="5">
-                                
+                            <h:panelGrid columns="3" cellpadding="5">
+
                                 <h:outputText value="Nome: *"/>
-                                <p:inputText id="nome_aluno" value="#{alunoBean.aluno.nome}" size="80"/>
-                                
+                                <p:inputText id="nome_aluno" value="#{alunoBean.aluno.nome}" size="80"
+                                             required="true" requiredMessage="Campo obrigatório"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                                <p:message for="nome_aluno" display="icon" showSummary="true"/>
+
                                 <h:outputText value="Sexo:"/>
                                 <p:selectOneMenu id="sexo_aluno" value="#{alunoBean.aluno.sexo}">
                                     <f:selectItem itemLabel="MASCULINO" itemValue="M"/>
                                     <f:selectItem itemLabel="FEMININO" itemValue="F"/>
                                 </p:selectOneMenu>
-                                
+                                <h:outputLabel/>
+
                                 <h:outputText value="Data Nasc: *"/>
                                 <p:calendar id="dataNasc_aluno" value="#{alunoBean.aluno.dataNasc}"
                                             showOn="button" pattern="dd/MM/yyyy" navigator="true" locale="pt"/>
-                                
+                                <h:outputLabel/>
+
+                                <h:outputText value="Natural de:"/>
+                                <p:inputText id="naturalidade_aluno" value="#{alunoBean.aluno.naturalidade}" size="40"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                                <h:outputLabel/>
+
+                                <h:outputText value="Nacionalidade:"/>
+                                <p:inputText id="nacionalidade_aluno" value="#{alunoBean.aluno.nacionalidade}" size="40"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+                                <h:outputLabel/>
+
+                                <h:outputText value="Fone:"/>
+                                <p:inputMask id="fone_aluno" value="#{alunoBean.aluno.foneAluno}" mask="(99) 9999-9999"/>
+                                <h:outputLabel/>
+
+                                <h:outputText value="E-mail:"/>
+                                <p:inputText id="email-aluno" value="#{alunoBean.aluno.email}" size="80"/>
+                                <h:outputLabel/>
                             </h:panelGrid>
 
                         </p:panel>
 
                     </p:tab>
 
+
+                    <!--
+                    ENDEREÇO
+                    -->
+
+                    <p:tab title="Endereço">
+
+                        <p:panel id="panel_dadosEndereco" header="">
+
+                            <h:panelGrid columns="2" cellpadding="5">
+
+                                <h:outputText value="Logradouro:"/>
+                                <p:inputText id="logradouro" value="#{alunoBean.aluno.endereco.logradouro}" size="60"
+                                             required="true" requiredMessage="O campo [LOGRADOURO] é obrigatório."
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+
+                                <h:outputText value="Complemento:"/>
+                                <p:inputText id="complemento" value="#{alunoBean.aluno.endereco.complemento}" size="60"
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+
+                                <h:outputText value="N°:"/>
+                                <p:inputText id="numero" value="#{alunoBean.aluno.endereco.numero}" size="5"
+                                             required="true" requiredMessage="O campo [Nº] é obrigatório."/>
+
+                                <h:outputText value="Bairro:"/>
+                                <p:inputText id="bairro" value="#{alunoBean.aluno.endereco.bairro}" size="30"
+                                             required="true" requiredMessage="O campo [BAIRRO] é obrigatório."
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+
+                                <h:outputText value="CEP:"/>
+                                <p:inputMask id="cep" value="#{alunoBean.aluno.endereco.cep}" mask="99999-999" size="10"
+                                             required="true" requiredMessage="O campo [CEP] é obrigatório."/>
+
+                                <h:outputText value="Cidade:"/>
+                                <p:inputText id="cidade" value="#{alunoBean.aluno.endereco.cidade}" size="30"
+                                             required="true" requiredMessage="O campo [CIDADE] é obrigatório."
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+
+                                <h:outputText value="UF:"/>
+                                <p:inputText id="uf" value="#{alunoBean.aluno.endereco.estado}" size="30"
+                                             required="true" requiredMessage="O campo [UF] é obrigatório."
+                                             onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+
+                    <!-- 
+                    FILIAÇÃO 
+                    -->
+
+                    <p:tab title="Filiação">
+
+                        <p:panel id="panel_filiacao">
+
+                            <p:tabView id="filiacao" style="border: 0px;">
+
+                                <p:tab title="Pai">
+
+                                    <p:panel id="panel_dadosPai">
+
+                                        <h:panelGrid columns="3" cellpadding="5" >
+
+                                            <h:outputText value="CPF:"/>
+                                            <p:inputMask id="cpf_pai" value="#{alunoBean.pai.cpf}" mask="999.999.999-99"/>
+                                            <p:commandButton id="pesquisar_cpfPai" icon="ui-icon-search" 
+                                                             value="#{alunoBean.verificaCpfPessoa}" update=":panel_dadosPai"/>
+
+                                        </h:panelGrid>
+
+                                        <p:separator/>
+
+                                        <h:panelGrid columns="2" cellpadding="5">
+
+                                            <h:outputText value="Nome:"/>
+                                            <p:inputText id="nome_pai" value="#{alunoBean.pai.nome}" size="60" 
+                                                         required="true" requiredMessage="O campo [NOME] é obrigatório."
+                                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                                            <h:outputText value="Profissão:"/>
+                                            <p:inputText id="profissao_pai" value="#{alunoBean.pai.profissao}" size="60"
+                                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                                            <h:outputText value="R.G.:"/>
+                                            <p:inputText id="rg_pai" value="#{alunoBean.pai.rg}" size="20"
+                                                         required="true" requiredMessage="O campo [RG] é obrigatório."/>
+
+                                            <h:outputText value="Fone 1:"/>
+                                            <p:inputMask id="fone1_pai" value="#{alunoBean.pai.fone1}" mask="(99)9999-9999"
+                                                         required="true" requiredMessage="O campo [FONE 1] é obrigatório."/>
+
+                                            <h:outputText value="Fone 2:"/>
+                                            <p:inputMask id="fone2_pai" value="#{alunoBean.pai.fone2}" mask="(99)9999-9999"/>
+
+                                            <h:outputText value="E-mail:"/>
+                                            <p:inputText id="email_pai" value="#{alunoBean.pai.email}" size="60"
+                                                         required="true" requiredMessage="O campo [E-MAIL] é obrigatório."/>
+
+
+                                        </h:panelGrid>
+
+                                    </p:panel>
+
+                                </p:tab>
+
+                                <p:tab title="Mãe">
+                                    <p:panel id="panel_dadosMae">
+
+                                        <h:panelGrid columns="3" cellpadding="5" >
+
+                                            <h:outputText value="CPF:"/>
+                                            <p:inputMask id="cpf_mae" value="#{alunoBean.mae.cpf}" mask="999.999.999-99"/>
+                                            <p:commandButton id="pesquisar_cpfMae" icon="ui-icon-search"
+                                                             value="#{alunoBean.verificaCpfPessoa}" update="panel_dadosMae"/>
+
+                                        </h:panelGrid>
+
+                                        <p:separator/>
+
+                                        <h:panelGrid columns="2" cellpadding="5">
+
+                                            <h:outputText value="Nome:"/>
+                                            <p:inputText id="nome_mae" value="#{alunoBean.mae.nome}" size="60" 
+                                                         required="true" requiredMessage="O campo [NOME] é obrigatório."
+                                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                                            <h:outputText value="Profissão:"/>
+                                            <p:inputText id="profissao_mae" value="#{alunoBean.mae.profissao}" size="60"
+                                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                                            <h:outputText value="R.G.:"/>
+                                            <p:inputText id="rg_mae" value="#{alunoBean.mae.rg}" size="20"
+                                                         required="true" requiredMessage="O campo [RG] é obrigatório."/>
+
+                                            <h:outputText value="Fone 1:"/>
+                                            <p:inputMask id="fone1_mae" value="#{alunoBean.mae.fone1}" mask="(99)9999-9999"
+                                                         required="true" requiredMessage="O campo [FONE 1] é obrigatório."/>
+
+                                            <h:outputText value="Fone 2:"/>
+                                            <p:inputMask id="fone2_mae" value="#{alunoBean.mae.fone2}" mask="(99)9999-9999"/>
+
+                                            <h:outputText value="E-mail:"/>
+                                            <p:inputText id="email_mae" value="#{alunoBean.mae.email}" size="60"
+                                                         required="true" requiredMessage="O campo [E-MAIL] é obrigatório."/>
+
+                                        </h:panelGrid>
+
+                                    </p:panel>
+                                </p:tab>
+
+                            </p:tabView>
+
+                        </p:panel>
+
+                    </p:tab>
+
+
+                    <!--
+                    DADOS ESCOLARES
+                    -->
+
+                    <p:tab title="Dados escolares">
+                        
+                        <p:panel header="">
+                            
+                        </p:panel>
+
+                    </p:tab>
+
+
+                    <!--
+                    CONFIRMAÇÃO
+                    -->
+
+                    <p:tab title="Confirmação">
+
+                        <p:panel header="">
+
+                            <p:fieldset legend="Dados pessoais">
+                                <h:panelGrid columns="2">
+                                    <h:outputText value="Nome:"/>
+                                    <h:outputText value="#{alunoBean.aluno.nome}"/>
+
+                                    <h:outputText value="Sexo:"/>
+                                    <h:outputText value="#{alunoBean.aluno.sexo}"/>
+
+                                    <h:outputText value="Data nasc.:"/>
+                                    <h:outputText value="#{alunoBean.aluno.dataNasc}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+
+                                    <h:outputText value="Natural de:"/>
+                                    <h:outputText value="#{alunoBean.aluno.naturalidade}"/>
+
+                                    <h:outputText value="Nacionalidade:"/>
+                                    <h:outputText value="#{alunoBean.aluno.nacionalidade}"/>
+
+                                    <h:outputText value="Fone:"/>
+                                    <h:outputText value="#{alunoBean.aluno.foneAluno}"/>
+
+                                    <h:outputText value="E-mail:"/>
+                                    <h:outputText value="#{alunoBean.aluno.email}"/>
+
+                                </h:panelGrid>
+                            </p:fieldset>
+                            <br/>
+                            <p:fieldset legend="Endereço">
+                                <h:panelGrid columns="2">
+
+                                    <h:outputText value="Logradouro:"/>
+                                    <h:outputText value="#{alunoBean.aluno.endereco.logradouro}"/>
+
+                                    <h:outputText value="Complemento:"/>
+                                    <h:outputText value="#{alunoBean.aluno.endereco.complemento}"/>
+
+                                    <h:outputText value="Nº:"/>
+                                    <h:outputText value="#{alunoBean.aluno.endereco.numero}"/>
+
+                                    <h:outputText value="Bairro:"/>
+                                    <h:outputText value="#{alunoBean.aluno.endereco.bairro}"/>
+
+                                    <h:outputText value="CEP:"/>
+                                    <h:outputText value="#{alunoBean.aluno.endereco.cep}"/>
+
+                                    <h:outputText value="Cidade:"/>
+                                    <h:outputText value="#{alunoBean.aluno.endereco.cidade}"/>
+
+                                    <h:outputText value="UF:"/>
+                                    <h:outputText value="#{alunoBean.aluno.endereco.estado}"/>
+                                </h:panelGrid>
+                            </p:fieldset>
+                            <br/>
+                            <p:fieldset legend="Filiação">
+                                <h:panelGrid columns="2">
+
+                                    <p:panel header="Pai" style="width: 400px;">
+
+                                        <h:panelGrid columns="2">
+                                            <h:outputText value="Nome:"/>
+                                            <h:outputText value="#{alunoBean.pai.nome}"/>
+
+                                            <h:outputText value="Profissão:"/>
+                                            <h:outputText value="#{alunoBean.pai.profissao}"/>
+
+                                            <h:outputText value="CPF:"/>
+                                            <h:outputText value="#{alunoBean.pai.cpf}"/>
+
+                                            <h:outputText value="RG:"/>
+                                            <h:outputText value="#{alunoBean.pai.rg}"/>
+
+                                            <h:outputText value="Fone 1:"/>
+                                            <h:outputText value="#{alunoBean.pai.fone1}"/>
+
+                                            <h:outputText value="Fone 2:"/>
+                                            <h:outputText value="#{alunoBean.pai.fone2}"/>
+
+                                            <h:outputText value="E-mail:"/>
+                                            <h:outputText value="#{alunoBean.pai.email}"/>
+                                        </h:panelGrid>
+
+                                    </p:panel>
+                                    
+                                    <p:panel header="Mãe" style="width: 400px;">
+
+                                        <h:panelGrid columns="2">
+                                            <h:outputText value="Nome:"/>
+                                            <h:outputText value="#{alunoBean.mae.nome}"/>
+
+                                            <h:outputText value="Profissão:"/>
+                                            <h:outputText value="#{alunoBean.mae.profissao}"/>
+
+                                            <h:outputText value="CPF:"/>
+                                            <h:outputText value="#{alunoBean.mae.cpf}"/>
+
+                                            <h:outputText value="RG:"/>
+                                            <h:outputText value="#{alunoBean.mae.rg}"/>
+
+                                            <h:outputText value="Fone 1:"/>
+                                            <h:outputText value="#{alunoBean.mae.fone1}"/>
+
+                                            <h:outputText value="Fone 2:"/>
+                                            <h:outputText value="#{alunoBean.mae.fone2}"/>
+
+                                            <h:outputText value="E-mail:"/>
+                                            <h:outputText value="#{alunoBean.mae.email}"/>
+                                        </h:panelGrid>
+
+                                    </p:panel>
+
+                                </h:panelGrid>
+
+                            </p:fieldset>
+
+                        </p:panel>
+
+                    </p:tab>
                 </p:wizard>
 
             </h:form>

@@ -32,43 +32,44 @@ import org.hibernate.annotations.FetchMode;
  * @author DIGITACAOFUND
  */
 @Entity
-@Table(name="tb_aluno")
+@Table(name = "tb_aluno")
 public class Aluno implements Serializable {
-    
+
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="alu_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "alu_id")
     private Integer id;
-    @Column(name="alu_nome")
+    @Column(name = "alu_nome")
     private String nome;
-    @Column(name="alu_sexo")
+    @Column(name = "alu_sexo")
     private String sexo;
-    @Column(name="alu_dataNasc")
-    private String dataNasc;
-    @Column(name="alu_naturalidade")
+    @Column(name = "alu_dataNasc")
+    @Temporal(TemporalType.DATE)
+    private Date dataNasc;
+    @Column(name = "alu_naturalidade")
     private String naturalidade;
-    @Column(name="alu_nacionalidade")
+    @Column(name = "alu_nacionalidade")
     private String nacionalidade;
-    @Column(name="alu_fone")
+    @Column(name = "alu_fone")
     private String foneAluno;
-    @Column(name="alu_foneContato1")
+    @Column(name = "alu_foneContato1")
     private String foneContato1;
-    @Column(name="alu_foneContato2")
+    @Column(name = "alu_foneContato2")
     private String foneContato2;
-    @Column(name="alu_foneContato3")
+    @Column(name = "alu_foneContato3")
     private String foneContato3;
-    @Column(name="alu_nomeContato1")
+    @Column(name = "alu_nomeContato1")
     private String nomeContato1;
-    @Column(name="alu_nomeContato2")
+    @Column(name = "alu_nomeContato2")
     private String nomeContato2;
-    @Column(name="alu_nomeContato3")
+    @Column(name = "alu_nomeContato3")
     private String nomeContato3;
-    @Column(name="alu_email")
+    @Column(name = "alu_email")
     private String email;
-    @Column(name="alu_status")
+    @Column(name = "alu_status")
     private String status;
     @Temporal(TemporalType.DATE)
-    @Column(name="alu_dataMatricula")
+    @Column(name = "alu_dataMatricula")
     private Date dataMatricula;
     //
     // MAPEAMENTOS
@@ -124,14 +125,6 @@ public class Aluno implements Serializable {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
-    }
-
-    public String getDataNasc() {
-        return dataNasc;
-    }
-
-    public void setDataNasc(String dataNasc) {
-        this.dataNasc = dataNasc;
     }
 
     public String getNaturalidade() {
@@ -262,9 +255,17 @@ public class Aluno implements Serializable {
         this.filiacao = filiacao;
     }
 
+    public Date getDataNasc() {
+        return dataNasc;
+    }
+
+    public void setDataNasc(Date dataNasc) {
+        this.dataNasc = dataNasc;
+    }
+
     @Override
     public String toString() {
-        return "Aluno{" + "id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", dataNasc=" + dataNasc + ", naturalidade=" + naturalidade + ", nacionalidade=" + nacionalidade + ", foneAluno=" + foneAluno + ", foneContato1=" + foneContato1 + ", foneContato2=" + foneContato2 + ", foneContato3=" + foneContato3 + ", nomeContato1=" + nomeContato1 + ", nomeContato2=" + nomeContato2 + ", nomeContato3=" + nomeContato3 + ", email=" + email + ", status=" + status + ", dataMAtricula=" + dataMatricula + ", serie=" + serie + ", endereco=" + endereco + ", anoLetivo=" + anoLetivo + ", filiacao=" + filiacao + '}';
+        return "Aluno{" + "id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", dataNasc=" + dataNasc + ", naturalidade=" + naturalidade + ", nacionalidade=" + nacionalidade + ", foneAluno=" + foneAluno + ", foneContato1=" + foneContato1 + ", foneContato2=" + foneContato2 + ", foneContato3=" + foneContato3 + ", nomeContato1=" + nomeContato1 + ", nomeContato2=" + nomeContato2 + ", nomeContato3=" + nomeContato3 + ", email=" + email + ", status=" + status + ", dataMatricula=" + dataMatricula + ", serie=" + serie + ", endereco=" + endereco + ", anoLetivo=" + anoLetivo + ", filiacao=" + filiacao + '}';
     }
 
     @Override
