@@ -23,6 +23,8 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class AnoLetivoMB implements Serializable, InterfaceManagedBean<AnoLetivo> {
 
+    private static final long serialVersionUID = 1L;
+    
     private AnoLetivo anoLetivo;
     private List<AnoLetivo> listaAnoLetivo;
     private AnoLetivoDAOImp anoLetivoDAOImp;

@@ -22,6 +22,8 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class SerieMB implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    
     private Serie serie;
     private List<Serie> series;
 

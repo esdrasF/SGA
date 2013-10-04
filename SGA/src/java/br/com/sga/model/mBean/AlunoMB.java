@@ -18,7 +18,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -28,6 +27,8 @@ import javax.faces.event.ActionEvent;
 @SessionScoped
 public class AlunoMB implements Serializable, InterfaceManagedBean<Aluno> {
 
+    private static final long serialVersionUID = 1L;
+    
     private Aluno aluno;
     private Endereco endereco;
     private Pessoa pai, mae;

@@ -25,6 +25,8 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
 
+    private static final long serialVersionUID = 1L;
+    
     private Pessoa pessoa;
     private List<Pessoa> listaPessoas;
     private boolean renderedPanelNovoCadastro = false;

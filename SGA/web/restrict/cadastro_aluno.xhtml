@@ -138,13 +138,13 @@
                                             <h:outputText value="CPF:"/>
                                             <p:inputMask id="cpf_pai" value="#{alunoBean.pai.cpf}" mask="999.999.999-99"/>
                                             <p:commandButton id="pesquisar_cpfPai" icon="ui-icon-search" 
-                                                             value="#{alunoBean.verificaCpfPessoa}" update=":panel_dadosPai"/>
+                                                             actionListener="#{alunoBean.verificaCpfPessoa()}" update="grid_dadosPai"/>
 
                                         </h:panelGrid>
 
                                         <p:separator/>
 
-                                        <h:panelGrid columns="2" cellpadding="5">
+                                        <h:panelGrid id="grid_dadosPai" columns="2" cellpadding="5">
 
                                             <h:outputText value="Nome:"/>
                                             <p:inputText id="nome_pai" value="#{alunoBean.pai.nome}" size="60" 
@@ -184,8 +184,7 @@
 
                                             <h:outputText value="CPF:"/>
                                             <p:inputMask id="cpf_mae" value="#{alunoBean.mae.cpf}" mask="999.999.999-99"/>
-                                            <p:commandButton id="pesquisar_cpfMae" icon="ui-icon-search"
-                                                             value="#{alunoBean.verificaCpfPessoa}" update="panel_dadosMae"/>
+                                            <p:commandButton id="pesquisar_cpfMae" icon="ui-icon-search"/>
 
                                         </h:panelGrid>
 
@@ -234,9 +233,9 @@
                     -->
 
                     <p:tab title="Dados escolares">
-                        
+
                         <p:panel header="">
-                            
+
                         </p:panel>
 
                     </p:tab>
@@ -333,7 +332,7 @@
                                         </h:panelGrid>
 
                                     </p:panel>
-                                    
+
                                     <p:panel header="Mãe" style="width: 400px;">
 
                                         <h:panelGrid columns="2">

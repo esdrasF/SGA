@@ -8,7 +8,6 @@ import br.com.sga.dao.DAOFactory;
 import br.com.sga.dao.imp.PessoaDAOImp;
 import br.com.sga.model.vo.Pessoa;
 import java.util.ArrayList;
-import org.hibernate.Criteria;
 
 /**
  *
