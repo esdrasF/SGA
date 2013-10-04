@@ -2,7 +2,7 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../resources/main.xhtml"
+                template="../../resources/main.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
@@ -15,6 +15,13 @@
 
                 <h:inputHidden id="idAluno" value="#{alunoBean.aluno.id}"/>
 
+                <p:panel id="pabel_botoes">
+                    <h:panelGrid columns="4">
+                        <p:commandButton id="botao_novoCadastro" value="Novo" icon="ui-icon-star"
+                                         ajax="false"/>
+                    </h:panelGrid>
+                </p:panel> 
+                <br/>
                 <div style="margin-top: 6px;">
 
                     <p:dataTable id="tabela_aluno" var="aluno" value="#{alunoBean.listaAlunos}" 
@@ -90,13 +97,7 @@
 
                     </p:dataTable>
                 </div>
-                <br/>
-                <p:panel id="pabel_botoes">
-                    <h:panelGrid columns="4">
-                        <p:commandButton id="botao_novoCadastro" value="Novo" icon="ui-icon-star"
-                                          ajax="false"/>
-                    </h:panelGrid>
-                </p:panel> 
+
             </h:form>
 
         </p:panel>
