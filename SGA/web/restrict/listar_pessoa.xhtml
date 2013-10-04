@@ -15,12 +15,15 @@
 
                 <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
 
-                <p:panel id="pabel_botoes">
-                    <h:panelGrid columns="4">
-                        <p:commandButton id="botao_novoCadastro" value="Novo" icon="ui-icon-star"
-                                         action="#{pessoaBean.novoCadastro}" ajax="false"/>
-                    </h:panelGrid>
-                </p:panel>
+                <p:menubar id="menu_pessoa">
+                    <p:menuitem id="novo_pessoa" action="#{pessoaBean.novoCadastro()}" value="Novo" ajax="false" icon="ui-icon-star"/>
+                    
+                    <f:facet name="options">
+                        <p:commandButton id="sair" value="Sair" ajax="false" icon="ui-icon-extlink" action="/restrict/home.xhtml" 
+                                         style="margin-right:10px"/>
+                    </f:facet>
+                </p:menubar>
+
                 <br/>
                 <div style="margin-top: 6px;">
 
@@ -31,21 +34,21 @@
                             <h:outputText value="Lista de pessoas"/>
                         </f:facet>
 
-                        <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}" style="text-align: center; width: 15%;"> 
+                        <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}" style="text-align: center;"> 
                             <f:facet name="header">
                                 <h:outputText value="Código"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.id}"/>
                         </p:column>
 
-                        <p:column sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}" style="width: 30%;">
+                        <p:column sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}">
                             <f:facet name="header">
                                 <h:outputText value="Nome"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.nome}"/>
                         </p:column>
 
-                        <p:column filterBy="#{pessoa.cpf}" style="text-align: center; width: 15%;">
+                        <p:column filterBy="#{pessoa.cpf}" style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="CPF"/>
                             </f:facet>
@@ -58,21 +61,21 @@
                             </f:facet>
                             <h:outputText value="#{pessoa.fone1}"/>
                         </p:column>
-                        
+
                         <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="Fone 2"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.fone2}"/>
                         </p:column>
-                       
+
                         <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="E-mail"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.email}"/>
                         </p:column>
-                        
+
                         <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="Editar"/>
@@ -81,18 +84,6 @@
                             <p:commandButton  title="Editar" icon="ui-icon-pencil" style="font-size: 1px;" 
                                               action="#{pessoaBean.editarPessoa}"  ajax="false">
                                 <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
-                            </p:commandButton>
-                        </p:column>
-
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="Excluir"/>
-                            </f:facet>
-
-                            <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 1px;" 
-                                             action="#{pessoaBean.excluirPessoa}" update=":form_listaPessoa">
-                                <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
-                                <f:setPropertyActionListener value="#{pessoa.endereco}" target="#{pessoaBean.pessoa.endereco}"/>
                             </p:commandButton>
                         </p:column>
 

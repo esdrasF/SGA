@@ -14,13 +14,17 @@
             <h:form id="form_listaAluno">
 
                 <h:inputHidden id="idAluno" value="#{alunoBean.aluno.id}"/>
-
-                <p:panel id="pabel_botoes">
-                    <h:panelGrid columns="4">
-                        <p:commandButton id="botao_novoCadastro" value="Novo" icon="ui-icon-star"
-                                         ajax="false"/>
-                    </h:panelGrid>
-                </p:panel> 
+                
+                <p:menubar id="menu_aluno">
+                    <p:menuitem id="novo_aluno" icon="ui-icon-star" value="Novo" ajax="false"/>
+                    
+                    <f:facet name="options" >
+                        <p:commandButton id="sair" icon="ui-icon-extlink" value="Sair" action="/restrict/home.xhtml" 
+                                         style="margin-right: 10px;" ajax="false" action="#{alunoBean.novoCadastroAluno}"/>
+                    </f:facet>
+                    
+                </p:menubar>
+                
                 <br/>
                 <div style="margin-top: 6px;">
 

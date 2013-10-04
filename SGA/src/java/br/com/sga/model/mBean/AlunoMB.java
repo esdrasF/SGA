@@ -110,6 +110,11 @@ public class AlunoMB implements Serializable, InterfaceManagedBean<Aluno> {
             mae = pessoaBo.selectPessoaByCpf(mae);
         }
     }
+    
+    public String novoCadastroAluno() {
+        setAluno(new Aluno());
+        return "/restrict/cadastro_aluno.xhtml";
+    }
 
     @Override
     public HibernateDAOImp getDAO() {
