@@ -2,7 +2,7 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="../../resources/main.xhtml"
+                template="../resources/main.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
@@ -15,59 +15,65 @@
 
                 <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
 
+                <p:panel id="pabel_botoes">
+                    <h:panelGrid columns="4">
+                        <p:commandButton id="botao_novoCadastro" value="Novo" icon="ui-icon-star"
+                                         action="#{pessoaBean.novoCadastro}" ajax="false"/>
+                    </h:panelGrid>
+                </p:panel>
+                <br/>
                 <div style="margin-top: 6px;">
 
                     <p:dataTable id="tabela_pessoa" var="pessoa" value="#{pessoaBean.listaPessoas}" 
-                                 paginator="true" rows="10" emptyMessage="Nenhum resultado foi encontrado."
-                                 style="text-align: center;" >
+                                 paginator="true" rows="10" emptyMessage="Nenhum resultado foi encontrado.">
 
                         <f:facet name="header">
                             <h:outputText value="Lista de pessoas"/>
                         </f:facet>
 
-                        <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}"> 
+                        <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}" style="text-align: center; width: 15%;"> 
                             <f:facet name="header">
                                 <h:outputText value="Código"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.id}"/>
                         </p:column>
 
-                        <p:column sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}">
+                        <p:column sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}" style="width: 30%;">
                             <f:facet name="header">
                                 <h:outputText value="Nome"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.nome}"/>
                         </p:column>
 
-                        <p:column filterBy="#{pessoa.cpf}">
+                        <p:column filterBy="#{pessoa.cpf}" style="text-align: center; width: 15%;">
                             <f:facet name="header">
                                 <h:outputText value="CPF"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.cpf}"/>
                         </p:column>
 
-                        <p:column >
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="Fone 1"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.fone1}"/>
                         </p:column>
                         
-                        <p:column >
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="Fone 2"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.fone2}"/>
                         </p:column>
                        
-                        <p:column >
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="E-mail"/>
                             </f:facet>
                             <h:outputText value="#{pessoa.email}"/>
                         </p:column>
                         
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="Editar"/>
                             </f:facet>
@@ -78,7 +84,7 @@
                             </p:commandButton>
                         </p:column>
 
-                        <p:column>
+                        <p:column style="text-align: center;">
                             <f:facet name="header">
                                 <h:outputText value="Excluir"/>
                             </f:facet>
@@ -96,14 +102,7 @@
 
                     </p:dataTable>
                 </div>
-                <br/>
-                <p:panel id="pabel_botoes">
-                    <h:panelGrid columns="4">
-                        <p:commandButton id="botao_novoCadastro" value="Novo" icon="ui-icon-star"
-                                         action="#{pessoaBean.novoCadastro}" ajax="false"/>
-                    </h:panelGrid>
-                </p:panel>
-                
+
             </h:form>
 
         </p:panel>

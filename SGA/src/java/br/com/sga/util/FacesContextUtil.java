@@ -12,12 +12,12 @@ import org.hibernate.Session;
  * @author DIGITACAOFUND
  */
 public class FacesContextUtil {
-    
+
     public static void setRequestSession(Session session) {
         FacesContext.getCurrentInstance().getExternalContext()
                 .getRequestMap().put("session", session);
     }
-    
+
     public static Session getRequestSession() {
         return (Session) FacesContext.getCurrentInstance()
                 .getExternalContext().getRequestMap().get("session");
