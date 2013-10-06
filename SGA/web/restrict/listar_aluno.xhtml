@@ -16,11 +16,12 @@
                 <h:inputHidden id="idAluno" value="#{alunoBean.aluno.id}"/>
                 
                 <p:menubar id="menu_aluno">
-                    <p:menuitem id="novo_aluno" icon="ui-icon-star" value="Novo" ajax="false"/>
+                    <p:menuitem id="novo_aluno" icon="ui-icon-star" value="Novo" ajax="false"
+                                action="#{alunoBean.novoCadastroAluno}"/>
                     
                     <f:facet name="options" >
-                        <p:commandButton id="sair" icon="ui-icon-extlink" value="Sair" action="/restrict/home.xhtml" 
-                                         style="margin-right: 10px;" ajax="false" action="#{alunoBean.novoCadastroAluno}"/>
+                        <p:commandButton id="sair" icon="ui-icon-extlink" value="Sair" 
+                                         style="margin-right: 10px;" ajax="false" action="/restrict/home.xhtml"/>
                     </f:facet>
                     
                 </p:menubar>
