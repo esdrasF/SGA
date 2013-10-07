@@ -16,8 +16,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -28,12 +28,11 @@ import javax.faces.context.FacesContext;
 public class AlunoMB implements Serializable, InterfaceManagedBean<Aluno> {
 
     private static final long serialVersionUID = 1L;
-    
     private Aluno aluno;
     private Endereco endereco;
     private Pessoa pai, mae;
     private List<Aluno> listaAlunos;
-    private UIInput nomePai = new UIInput();
+    private boolean rendered = false;
 
     public AlunoMB() {
         pai = new Pessoa();
@@ -85,12 +84,12 @@ public class AlunoMB implements Serializable, InterfaceManagedBean<Aluno> {
         this.endereco = endereco;
     }
 
-    public UIInput getNomePai() {
-        return nomePai;
+    public boolean isRendered() {
+        return rendered;
     }
 
-    public void setNomePai(UIInput nomePai) {
-        this.nomePai = nomePai;
+    public void setRendered(boolean rendered) {
+        this.rendered = rendered;
     }
 
     public void addAluno() {
@@ -102,15 +101,29 @@ public class AlunoMB implements Serializable, InterfaceManagedBean<Aluno> {
         setAluno(new Aluno());
     }
 
-    public void verificaCpfPessoa() {
-        PessoaBO pessoaBo = new PessoaBO();
-        if (!pai.getCpf().equals("")) {
-            pai = pessoaBo.selectPessoaByCpf(pai);
-        } else if (!mae.getCpf().equals("")) {
-            mae = pessoaBo.selectPessoaByCpf(mae);
+    public void verificaCpfPai() {
+        System.out.println("ENTROU..");
+        PessoaBO pessoaBO = new PessoaBO();
+        if (!pai.getCpf().equals("") || pai.getCpf() != null) {
+            pai = pessoaBO.selectPessoaByCpf(pai);
+            if (pai == null || pai.getId() == null || pai.getId() == 0) {
+                pai = new Pessoa();
+                rendered = true;
+            }
         }
     }
-    
+
+    public void verificaCpfMae() {
+        System.out.println("ENTROU..");
+        PessoaBO pessoaBO = new PessoaBO();
+        if (!mae.getCpf().equals("") || mae.getCpf() != null) {
+            mae = pessoaBO.selectPessoaByCpf(mae);
+            if (mae == null) {
+                rendered = true;
+            }
+        }
+    }
+
     public String novoCadastroAluno() {
         setAluno(new Aluno());
         return "/restrict/cadastro_aluno.xhtml";
