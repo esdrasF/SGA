@@ -32,7 +32,6 @@
 
                                 <h:outputText value="Nome: *"/>
                                 <p:inputText id="nome_aluno" value="#{alunoBean.aluno.nome}" size="80"
-                                             required="true" requiredMessage="Campo obrigatório"
                                              onkeyup="this.value = this.value.toUpperCase()"/>
                                 <p:message for="nome_aluno" display="icon" showSummary="true"/>
 
@@ -133,7 +132,7 @@
                                     <h:outputText value="CPF:"/>
                                     <p:inputMask mask="999.999.999-99" value="#{alunoBean.pai.cpf}"/>
                                     <p:commandButton id="pesquisaCpf" value="Pesquisar" 
-                                                     actionListener="#{alunoBean.verificaCpfPai()}" onclick="PF('dlg').show();"/>
+                                                     actionListener="#{alunoBean.verificaCpfPai()}"/>
                                 </h:panelGrid>
 
                                 <p:separator/>
@@ -306,10 +305,6 @@
 
                     </p:tab>
                 </p:wizard>
-
-                <p:dialog id="dialog_cadastroPessoa" header="Cadastro de pessoa" widgetVar="dlg" modal="true" height="100">
-                    <h:outputText value="Teste"/>
-                </p:dialog>
 
             </h:form>
 
