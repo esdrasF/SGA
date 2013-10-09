@@ -1,13 +1,24 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="./../resources/main_1.xhtml"
-                xmlns:p="http://primefaces.org/ui">
+                template="../resources/main.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
 
     <ui:define name="conteudo">
-        <p:tab title="Teste" closable="true">
-            <p:button value="Teste"/>
-        </p:tab>
+           
+            <h:form id="form">
+                    <p:commandButton onclick="dlg.show()" update=":form_dialog:display"/>
+            </h:form>
+            
+            <h:form id="form_dialog">
+                <p:dialog id="dialog" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="explode">
+                    <h:panelGrid id="display" columns="2">
+                        <h:outputText value="Teste"/>
+                        <h:outputText value="Teste"/>
+                    </h:panelGrid>
+                </p:dialog> 
+            </h:form>
     </ui:define>
 
 </ui:composition>

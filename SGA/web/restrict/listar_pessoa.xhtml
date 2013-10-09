@@ -9,94 +9,188 @@
 
     <ui:define name="conteudo">
 
-        <p:panel id="panel_listaPessoa" header="Pessoa" style="border: 0px;">
+        <h:form id="form_listaPessoa">
 
-            <h:form id="form_listaPessoa">
+            <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
 
-                <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
+            <p:commandButton value="Novo cadastro" actionListener="#{pessoaBean.viewCadastroPessoa}"/>
 
-                <p:menubar id="menu_pessoa">
-                    <p:menuitem id="novo_pessoa" action="#{pessoaBean.novoCadastro()}" value="Novo" ajax="false" icon="ui-icon-star"/>
-                    
-                    <f:facet name="options">
-                        <p:commandButton id="sair" value="Sair" ajax="false" icon="ui-icon-extlink" action="/restrict/home.xhtml" 
-                                         style="margin-right:10px"/>
+            <br/>
+            <div style="margin-top: 6px;">
+
+                <p:dataTable id="tabela_pessoa" var="pessoa" value="#{pessoaBean.listaPessoas}" 
+                             paginator="true" rows="10" emptyMessage="Nenhum resultado foi encontrado.">
+
+                    <f:facet name="header">
+                        <h:outputText value="Lista de pessoas"/>
                     </f:facet>
-                </p:menubar>
 
-                <br/>
-                <div style="margin-top: 6px;">
-
-                    <p:dataTable id="tabela_pessoa" var="pessoa" value="#{pessoaBean.listaPessoas}" 
-                                 paginator="true" rows="10" emptyMessage="Nenhum resultado foi encontrado.">
-
+                    <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}" style="text-align: center;"> 
                         <f:facet name="header">
-                            <h:outputText value="Lista de pessoas"/>
+                            <h:outputText value="Código"/>
+                        </f:facet>
+                        <h:outputText value="#{pessoa.id}"/>
+                    </p:column>
+
+                    <p:column sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}">
+                        <f:facet name="header">
+                            <h:outputText value="Nome"/>
+                        </f:facet>
+                        <h:outputText value="#{pessoa.nome}"/>
+                    </p:column>
+
+                    <p:column filterBy="#{pessoa.cpf}" style="text-align: center;">
+                        <f:facet name="header">
+                            <h:outputText value="CPF"/>
+                        </f:facet>
+                        <h:outputText value="#{pessoa.cpf}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center;">
+                        <f:facet name="header">
+                            <h:outputText value="Fone 1"/>
+                        </f:facet>
+                        <h:outputText value="#{pessoa.fone1}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center;">
+                        <f:facet name="header">
+                            <h:outputText value="Fone 2"/>
+                        </f:facet>
+                        <h:outputText value="#{pessoa.fone2}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center;">
+                        <f:facet name="header">
+                            <h:outputText value="E-mail"/>
+                        </f:facet>
+                        <h:outputText value="#{pessoa.email}"/>
+                    </p:column>
+
+                    <p:column style="text-align: center;">
+                        <f:facet name="header">
+                            <h:outputText value="Editar"/>
                         </f:facet>
 
-                        <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}" style="text-align: center;"> 
-                            <f:facet name="header">
-                                <h:outputText value="Código"/>
-                            </f:facet>
-                            <h:outputText value="#{pessoa.id}"/>
-                        </p:column>
+                        <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 7px;" 
+                                         oncomplete="dlg_dadosPessoa.show()" update=":form_dadosPessoa">
+                            <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
+                        </p:commandButton>
+                    </p:column>
 
-                        <p:column sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}">
-                            <f:facet name="header">
-                                <h:outputText value="Nome"/>
-                            </f:facet>
-                            <h:outputText value="#{pessoa.nome}"/>
-                        </p:column>
+                    <f:facet name="footer">
+                        <h:outputText value="#{pessoaBean.listaPessoas.size()} registros recuperados."/>
+                    </f:facet>
 
-                        <p:column filterBy="#{pessoa.cpf}" style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="CPF"/>
-                            </f:facet>
-                            <h:outputText value="#{pessoa.cpf}"/>
-                        </p:column>
+                </p:dataTable>
+            </div>
+        </h:form>
 
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="Fone 1"/>
-                            </f:facet>
-                            <h:outputText value="#{pessoa.fone1}"/>
-                        </p:column>
 
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="Fone 2"/>
-                            </f:facet>
-                            <h:outputText value="#{pessoa.fone2}"/>
-                        </p:column>
+        <h:form id="form_dadosPessoa">
 
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="E-mail"/>
-                            </f:facet>
-                            <h:outputText value="#{pessoa.email}"/>
-                        </p:column>
+            <p:dialog id="dialog_dadosPessoa" widgetVar="dlg_dadosPessoa" closeOnEscape="true"
+                      resizable="false" showEffect="fade" hideEffect="explode" header="Pessoa"
+                      width="800">
 
-                        <p:column style="text-align: center;">
-                            <f:facet name="header">
-                                <h:outputText value="Editar"/>
-                            </f:facet>
+                <p:tabView id="tabView_cadPessoa" activeIndex="0">
 
-                            <p:commandButton  title="Editar" icon="ui-icon-pencil" style="font-size: 1px;" 
-                                              action="#{pessoaBean.editarPessoa}"  ajax="false">
-                                <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
-                            </p:commandButton>
-                        </p:column>
+                    <!--PESSOA-->
 
-                        <f:facet name="footer">
-                            <h:outputText value="#{pessoaBean.listaPessoas.size()} registros recuperados."/>
-                        </f:facet>
+                    <p:tab title="Dados pessoais">
 
-                    </p:dataTable>
-                </div>
+                        <h:panelGrid columns="2" cellpadding="5">
 
-            </h:form>
+                            <h:outputText value="Nome:"/>
+                            <p:inputText id="nome" value="#{pessoaBean.pessoa.nome}" size="60" 
+                                         required="true" requiredMessage="O campo [NOME] é obrigatório."
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
 
-        </p:panel>
+                            <h:outputText value="Profissão:"/>
+                            <p:inputText id="profissao" value="#{pessoaBean.pessoa.profissao}" size="60"
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            <h:outputText value="C.P.F.:"/>
+                            <p:inputMask id="cpf" value="#{pessoaBean.pessoa.cpf}" mask="999.999.999-99"
+                                         required="true" requiredMessage="O campo [CPF] é obrigatório."/>
+
+                            <h:outputText value="R.G.:"/>
+                            <p:inputText id="rg" value="#{pessoaBean.pessoa.rg}" size="20"
+                                         required="true" requiredMessage="O campo [RG] é obrigatório."/>
+
+                            <h:outputText value="Fone 1:"/>
+                            <p:inputMask id="fone1" value="#{pessoaBean.pessoa.fone1}" mask="(99)9999-9999"
+                                         required="true" requiredMessage="O campo [FONE 1] é obrigatório."/>
+
+                            <h:outputText value="Fone 2:"/>
+                            <p:inputMask id="fone2" value="#{pessoaBean.pessoa.fone2}" mask="(99)9999-9999"/>
+
+                            <h:outputText value="E-mail:"/>
+                            <p:inputText id="email" value="#{pessoaBean.pessoa.email}" size="60"
+                                         required="true" requiredMessage="O campo [E-MAIL] é obrigatório."/>
+
+                        </h:panelGrid>
+
+                    </p:tab>
+
+                    <!--ENDEREÇO-->
+
+                    <p:tab title="Endereço">
+
+                        <h:panelGrid columns="2" cellpadding="5">
+
+                            <h:outputText value="Logradouro:"/>
+                            <p:inputText id="logradouro" value="#{pessoaBean.pessoa.endereco.logradouro}" size="60"
+                                         required="true" requiredMessage="O campo [LOGRADOURO] é obrigatório."
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            <h:outputText value="Complemento:"/>
+                            <p:inputText id="complemento" value="#{pessoaBean.pessoa.endereco.complemento}" size="60"
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            <h:outputText value="N°:"/>
+                            <p:inputText id="numero" value="#{pessoaBean.pessoa.endereco.numero}" size="5"
+                                         required="true" requiredMessage="O campo [Nº] é obrigatório."/>
+
+                            <h:outputText value="Bairro:"/>
+                            <p:inputText id="bairro" value="#{pessoaBean.pessoa.endereco.bairro}" size="30"
+                                         required="true" requiredMessage="O campo [BAIRRO] é obrigatório."
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            <h:outputText value="CEP:"/>
+                            <p:inputMask id="cep" value="#{pessoaBean.pessoa.endereco.cep}" mask="99999-999" size="10"
+                                         required="true" requiredMessage="O campo [CEP] é obrigatório."/>
+
+                            <h:outputText value="Cidade:"/>
+                            <p:inputText id="cidade" value="#{pessoaBean.pessoa.endereco.cidade}" size="30"
+                                         required="true" requiredMessage="O campo [CIDADE] é obrigatório."
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                            <h:outputText value="UF:"/>
+                            <p:inputText id="uf" value="#{pessoaBean.pessoa.endereco.estado}" size="30"
+                                         required="true" requiredMessage="O campo [UF] é obrigatório."
+                                         onkeyup="this.value = this.value.toUpperCase()"/>
+
+                        </h:panelGrid>
+
+                    </p:tab>
+
+                </p:tabView>
+                <br/>
+
+                <!--BOTÕES-->
+
+                <p:panel>
+
+                    <h:panelGrid columns="4">
+                        <p:commandButton id="botao_salvar" value="Salvar" icon="ui-icon-check" 
+                                         actionListener="#{pessoaBean.addPessoa}"/>
+                    </h:panelGrid>
+                </p:panel>
+
+            </p:dialog>
+
+        </h:form>
 
     </ui:define>
 

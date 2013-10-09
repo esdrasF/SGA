@@ -16,6 +16,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -85,7 +86,6 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
                     setPessoa(new Pessoa());
                     getPessoa().setEndereco(new Endereco());
                     setListaPessoas(null);
-                    setRenderedPanelNovoCadastro(false);
                 } else {
                     setMessage("CPF já cadastrado na base de dados.", FacesMessage.SEVERITY_WARN);
                 }
@@ -94,7 +94,6 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
                 setPessoa(new Pessoa());
                 getPessoa().setEndereco(new Endereco());
                 setListaPessoas(null);
-                setRenderedPanelNovoCadastro(false);
             }
 
         } else {
@@ -113,9 +112,9 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
         return "/restrict/cadastro_pessoa.xhtml";
     }
 
-    public String novoCadastro() {
+    
+    public void novoCadastro() {
         setPessoa(new Pessoa());
-        return "/restrict/cadastro_pessoa.xhtml";
     }
 
     public void cancelarNovoCadastro() {
@@ -125,6 +124,10 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
     public void limparCampos() {
         setPessoa(new Pessoa());
         getPessoa().setEndereco(new Endereco());
+    }
+    
+    public void viewCadastroPessoa() {
+        RequestContext.getCurrentInstance().openDialog("testModal");
     }
 
     private void inserir() {

@@ -14,18 +14,18 @@
             <h:form id="form_listaAluno">
 
                 <h:inputHidden id="idAluno" value="#{alunoBean.aluno.id}"/>
-                
+
                 <p:menubar id="menu_aluno">
                     <p:menuitem id="novo_aluno" icon="ui-icon-star" value="Novo" ajax="false"
                                 action="#{alunoBean.novoCadastroAluno}"/>
-                    
+
                     <f:facet name="options" >
                         <p:commandButton id="sair" icon="ui-icon-extlink" value="Sair" 
                                          style="margin-right: 10px;" ajax="false" action="/restrict/home.xhtml"/>
                     </f:facet>
-                    
+
                 </p:menubar>
-                
+
                 <br/>
                 <div style="margin-top: 6px;">
 
@@ -76,22 +76,23 @@
                             <f:facet name="header">
                                 <h:outputText value="Editar"/>
                             </f:facet>
-                            <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 1px;" update=":form_listaAluno">
+                            <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 7px;" update=":form_listaAluno">
                                 <f:setPropertyActionListener value="#{aluno}" target="#{alunoBean.aluno}"/>
                             </p:commandButton>
                         </p:column>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Excluir"/>
-                            </f:facet>
+                        <ui:remove> <!-- Coluna "EXCLUIR removida" -->
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Excluir"/>
+                                </f:facet>
 
-                            <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 1px;" 
-                                             action="#" update=":form_listaAluno">
-                                <f:setPropertyActionListener value="#{aluno}" target="#{alunoBean.aluno}"/>
-                            </p:commandButton>
-                        </p:column>
-
+                                <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 1px;" 
+                                                 action="#" update=":form_listaAluno">
+                                    <f:setPropertyActionListener value="#{aluno}" target="#{alunoBean.aluno}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </ui:remove> 
                         <f:facet name="footer">
                             <h:outputText value="#{alunoBean.listaAlunos.size()} registros recuperados."/>
                         </f:facet>

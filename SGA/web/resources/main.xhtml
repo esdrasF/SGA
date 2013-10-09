@@ -18,23 +18,23 @@
             font-size: 12px;
         }
     </style>
-    <h:body style="background-color: #999999;">
+    <h:body style="background-color: #efefef;">
 
         <p:layout fullPage="true">  
 
             <p:layoutUnit position="north" size="55" >  
+                <!--<h1 class="title ui-widget-header ui-corner-all">SGA</h1>-->
                 <h:outputText value="SGA" 
                               style="
                               font-size: 40px; 
-                              padding-left: 15px; "/>  
+                              padding-left: 15px; "/> 
             </p:layoutUnit>  
 
-            <ui:remove>
-                <p:layoutUnit position="south" size="60" style="text-align: center; padding-top: 14px;">  
-                    <h:outputText value="SGA - Sistema de Gerênciamento Acadêmico" /> <br/> 
-                    <h:outputText value="2013 (C) - Todos os direitos reservados." />  
-                </p:layoutUnit>  
-            </ui:remove>
+            <p:layoutUnit position="south" size="60" style="text-align: center; padding-top: 14px;">  
+                <h:outputText value="SGA - Sistema de Gerênciamento Acadêmico"/> <br/> 
+                <h:outputText value="&copy; 2013 - Todos os direitos reservados." />  
+            </p:layoutUnit>  
+
             <p:layoutUnit position="west" size="210" collapsed="false" collapseSize="50" collapsible="true" header="Menu">  
                 <h:form id="menu">
                     <p:panelMenu id="menu" style="width: 200px;">
