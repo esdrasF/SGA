@@ -14,94 +14,92 @@
             <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
 
             <p:menubar id="barra_menu" >
-                <p:menuitem value="Novo cadastro" outcome="/restrict/cadastro_pessoa.xhtml" ajax="false"/>
+                <p:menuitem value="Novo cadastro" action="#{pessoaBean.novoCadastro}" ajax="false"/>
 
                 <f:facet name="options">
-                    <p:commandButton value="Sair" icon="ui-icon-extlink" 
-                                     action="/restrict/home.xhtml" ajax="false"/>
+                    <p:button value="Sair" icon="ui-icon-extlink" 
+                                     outcome="/restrict/home.xhtml"/>
                 </f:facet>
             </p:menubar>
 
             <br/>
-            <div style="margin-top: 6px;">
 
-                <p:dataTable id="tabela_pessoa" var="pessoa" value="#{pessoaBean.listaPessoas}" 
-                             paginator="true" rows="10" emptyMessage="Nenhum resultado foi encontrado.">
+            <p:dataTable id="tabela_pessoa" var="pessoa" value="#{pessoaBean.listaPessoas}" 
+                         paginator="true" rows="10" emptyMessage="Nenhum resultado foi encontrado." >
 
+                <f:facet name="header">
+                    <h:outputText value="Lista de pessoas"/>
+                </f:facet>
+
+                <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}" style="text-align: center;"> 
                     <f:facet name="header">
-                        <h:outputText value="Lista de pessoas"/>
+                        <h:outputText value="Código"/>
+                    </f:facet>
+                    <h:outputText value="#{pessoa.id}"/>
+                </p:column>
+
+                <p:column sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}">
+                    <f:facet name="header">
+                        <h:outputText value="Nome"/>
+                    </f:facet>
+                    <h:outputText value="#{pessoa.nome}"/>
+                </p:column>
+
+                <p:column filterBy="#{pessoa.cpf}" style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="CPF"/>
+                    </f:facet>
+                    <h:outputText value="#{pessoa.cpf}"/>
+                </p:column>
+
+                <p:column style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="Fone 1"/>
+                    </f:facet>
+                    <h:outputText value="#{pessoa.fone1}"/>
+                </p:column>
+
+                <p:column style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="Fone 2"/>
+                    </f:facet>
+                    <h:outputText value="#{pessoa.fone2}"/>
+                </p:column>
+
+                <p:column style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="E-mail"/>
+                    </f:facet>
+                    <h:outputText value="#{pessoa.email}"/>
+                </p:column>
+
+                <p:column style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="Editar"/>
                     </f:facet>
 
-                    <p:column sortBy="#{pessoa.id}" filterBy="#{pessoa.id}" style="text-align: center;"> 
-                        <f:facet name="header">
-                            <h:outputText value="Código"/>
-                        </f:facet>
-                        <h:outputText value="#{pessoa.id}"/>
-                    </p:column>
+                    <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 7px;" 
+                                     oncomplete="dlg_dadosPessoa.show()" update=":form_dadosPessoa">
+                        <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
+                    </p:commandButton>
+                </p:column>
 
-                    <p:column sortBy="#{pessoa.nome}" filterBy="#{pessoa.nome}">
-                        <f:facet name="header">
-                            <h:outputText value="Nome"/>
-                        </f:facet>
-                        <h:outputText value="#{pessoa.nome}"/>
-                    </p:column>
-
-                    <p:column filterBy="#{pessoa.cpf}" style="text-align: center;">
-                        <f:facet name="header">
-                            <h:outputText value="CPF"/>
-                        </f:facet>
-                        <h:outputText value="#{pessoa.cpf}"/>
-                    </p:column>
-
-                    <p:column style="text-align: center;">
-                        <f:facet name="header">
-                            <h:outputText value="Fone 1"/>
-                        </f:facet>
-                        <h:outputText value="#{pessoa.fone1}"/>
-                    </p:column>
-
-                    <p:column style="text-align: center;">
-                        <f:facet name="header">
-                            <h:outputText value="Fone 2"/>
-                        </f:facet>
-                        <h:outputText value="#{pessoa.fone2}"/>
-                    </p:column>
-
-                    <p:column style="text-align: center;">
-                        <f:facet name="header">
-                            <h:outputText value="E-mail"/>
-                        </f:facet>
-                        <h:outputText value="#{pessoa.email}"/>
-                    </p:column>
-
-                    <p:column style="text-align: center;">
-                        <f:facet name="header">
-                            <h:outputText value="Editar"/>
-                        </f:facet>
-
-                        <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 7px;" 
-                                         oncomplete="dlg_dadosPessoa.show()" update=":form_dadosPessoa">
-                            <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
-                        </p:commandButton>
-                    </p:column>
-
-                    <p:column style="text-align: center;">
-                        <f:facet name="header">
-                            <h:outputText value="Excluir"/>
-                        </f:facet>
-
-                        <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 7px;" 
-                                         actionListener="#{pessoaBean.excluirPessoa}" update=":form_listaPessoa">
-                            <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
-                        </p:commandButton>
-                    </p:column>
-
-                    <f:facet name="footer">
-                        <h:outputText value="#{pessoaBean.listaPessoas.size()} registros recuperados."/>
+                <p:column style="text-align: center;">
+                    <f:facet name="header">
+                        <h:outputText value="Excluir"/>
                     </f:facet>
 
-                </p:dataTable>
-            </div>
+                    <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 7px;" 
+                                     actionListener="#{pessoaBean.excluirPessoa}" update=":form_listaPessoa">
+                        <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
+                    </p:commandButton>
+                </p:column>
+
+                <f:facet name="footer">
+                    <h:outputText value="#{pessoaBean.listaPessoas.size()} registros recuperados."/>
+                </f:facet>
+
+            </p:dataTable>
         </h:form>
 
         <!--PESSOA-->
