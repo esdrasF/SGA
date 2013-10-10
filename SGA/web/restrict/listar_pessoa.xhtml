@@ -13,15 +13,22 @@
 
             <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
 
+            <p:panel >
+                <p:commandButton actionListener="#{pessoaBean.novoCadastro}" 
+                                 onclick="dlg_dadosPessoa.show(); return false;" value="Teste"
+                                 update=":form_dadosPessoa"/>
+                    
+            </p:panel>
+
+            <ui:remove>
             <p:menubar id="barra_menu" >
                 <p:menuitem value="Novo cadastro" action="#{pessoaBean.novoCadastro}" ajax="false"/>
-
                 <f:facet name="options">
                     <p:button value="Sair" icon="ui-icon-extlink" 
                                      outcome="/restrict/home.xhtml"/>
                 </f:facet>
             </p:menubar>
-
+            </ui:remove>
             <br/>
 
             <p:dataTable id="tabela_pessoa" var="pessoa" value="#{pessoaBean.listaPessoas}" 
@@ -108,7 +115,7 @@
 
             <p:dialog id="dialog_dadosPessoa" widgetVar="dlg_dadosPessoa" closeOnEscape="true"
                       resizable="false" showEffect="fade" hideEffect="explode" header="Pessoa"
-                      width="800">
+                      width="800" >
 
                 <p:tabView id="tabView_cadPessoa" activeIndex="0">
 

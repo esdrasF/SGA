@@ -110,9 +110,8 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
         return "/restrict/cadastro_pessoa.xhtml";
     }
 
-    public String novoCadastro() {
+    public void novoCadastro() {
         setPessoa(new Pessoa());
-        return "/restrict/cadastro_pessoa.xhtml";
     }
 
     public void cancelarNovoCadastro() {
