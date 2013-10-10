@@ -13,7 +13,14 @@
 
             <p:growl autoUpdate="true" showDetail="false" showSummary="true"/>
 
-            <p:commandButton value="Novo cadastro" actionListener="#{pessoaBean.viewCadastroPessoa}"/>
+            <p:menubar id="barra_menu" >
+                <p:menuitem value="Novo cadastro" outcome="/restrict/cadastro_pessoa.xhtml" ajax="false"/>
+
+                <f:facet name="options">
+                    <p:commandButton value="Sair" icon="ui-icon-extlink" 
+                                     action="/restrict/home.xhtml" ajax="false"/>
+                </f:facet>
+            </p:menubar>
 
             <br/>
             <div style="margin-top: 6px;">
@@ -78,6 +85,17 @@
                         </p:commandButton>
                     </p:column>
 
+                    <p:column style="text-align: center;">
+                        <f:facet name="header">
+                            <h:outputText value="Excluir"/>
+                        </f:facet>
+
+                        <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 7px;" 
+                                         actionListener="#{pessoaBean.excluirPessoa}" update=":form_listaPessoa">
+                            <f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
+                        </p:commandButton>
+                    </p:column>
+
                     <f:facet name="footer">
                         <h:outputText value="#{pessoaBean.listaPessoas.size()} registros recuperados."/>
                     </f:facet>
@@ -86,6 +104,7 @@
             </div>
         </h:form>
 
+        <!--PESSOA-->
 
         <h:form id="form_dadosPessoa">
 
@@ -94,8 +113,6 @@
                       width="800">
 
                 <p:tabView id="tabView_cadPessoa" activeIndex="0">
-
-                    <!--PESSOA-->
 
                     <p:tab title="Dados pessoais">
 
@@ -184,7 +201,7 @@
 
                     <h:panelGrid columns="4">
                         <p:commandButton id="botao_salvar" value="Salvar" icon="ui-icon-check" 
-                                         actionListener="#{pessoaBean.addPessoa}"/>
+                                         actionListener="#{pessoaBean.addPessoa}" update=":form_listaPessoa :form_dadosPessoa"/>
                     </h:panelGrid>
                 </p:panel>
 

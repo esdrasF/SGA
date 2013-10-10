@@ -16,7 +16,6 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -27,7 +26,6 @@ import org.primefaces.context.RequestContext;
 public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
 
     private static final long serialVersionUID = 1L;
-    
     private Pessoa pessoa;
     private List<Pessoa> listaPessoas;
     private boolean renderedPanelNovoCadastro = false;
@@ -73,7 +71,7 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
     public void setMessage(String msg, Severity severity) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, msg, null));
     }
-    
+
     public void addPessoa() {
 
         PessoaBO pbo = new PessoaBO();
@@ -90,10 +88,14 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
                     setMessage("CPF já cadastrado na base de dados.", FacesMessage.SEVERITY_WARN);
                 }
             } else {
-                atualizar();
-                setPessoa(new Pessoa());
-                getPessoa().setEndereco(new Endereco());
-                setListaPessoas(null);
+                if (!pbo.isExistCpfDB(pessoa)) {
+                    atualizar();
+                    setPessoa(new Pessoa());
+                    getPessoa().setEndereco(new Endereco());
+                    setListaPessoas(null); 
+                } else {
+                    setMessage("CPF já cadastrado na base de dados.", FacesMessage.SEVERITY_WARN);
+                }
             }
 
         } else {
@@ -112,9 +114,9 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
         return "/restrict/cadastro_pessoa.xhtml";
     }
 
-    
-    public void novoCadastro() {
+    public String novoCadastro() {
         setPessoa(new Pessoa());
+        return "/restrict/cadastro_pessoa.xhtml";
     }
 
     public void cancelarNovoCadastro() {
@@ -124,10 +126,6 @@ public class PessoaMB implements Serializable, InterfaceManagedBean<Pessoa> {
     public void limparCampos() {
         setPessoa(new Pessoa());
         getPessoa().setEndereco(new Endereco());
-    }
-    
-    public void viewCadastroPessoa() {
-        RequestContext.getCurrentInstance().openDialog("testModal");
     }
 
     private void inserir() {

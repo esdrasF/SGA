@@ -1,0 +1,2 @@
+Corrigir bug na hora de atualizar uma pessoa.
+O sistema está deixando uma pessoa ser atualizada com um cpf já existente na base de dados.
