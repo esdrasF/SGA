@@ -2,62 +2,20 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="../resources/main.xhtml"
+                template="mainTemplate.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core">
 
-    <ui:define name="conteudo">
+    <ui:define name="content">
 
-        <p:panel id="panel_listaSerie" header="Serie" style="border: 0px;">
+        <h:form id="form_listaSerie">
 
-            <p:panel id="panel_formEditar" >
+            <p:growl autoUpdate="true" showSummary="true" showDetail="false"/>
 
-                <i><h:outputText value="Os campos com (*) são de preenchimento obrigatório."/></i>
+            <h:inputHidden id="idSerie" value="#{serieBean.serie.id}"/>
 
-                <p:separator />
-
-                <h:form id="form_editar" >
-
-                    <h:inputHidden id="idSerie" value="#{serieBean.serie.id}"/>
-
-                    <p:growl autoUpdate="true" showSummary="true" showDetail="false"/>
-
-                    <h:panelGrid columns="2" id="panelGrig_campos" cellpadding="5">
-
-                        <h:outputText value="* Serie/Ano:"/>
-                        <p:inputText id="serie" value="#{serieBean.serie.serie}" 
-                                     required="true" requiredMessage="Campo serie é obrigatório." size="14"/>
-
-                        <h:outputText value="* Modalidade:"/>
-                        <p:selectOneMenu id="modalidade" value="#{serieBean.serie.modalidade}" 
-                                         rendered="true" requiredMessage="Campo modalidade é obrigatório.">
-                            <f:selectItem itemLabel="Selecione um..." itemValue=""/>
-                            <f:selectItem itemLabel="Fundamental" itemValue="FUNDAMENTAL"/>
-                            <f:selectItem itemLabel="Médio" itemValue="MEDIO"/>
-                        </p:selectOneMenu>
-
-                        <h:outputText value="* Status:"/>
-                        <p:selectOneMenu id="status" value="#{serieBean.serie.status}"
-                                         rendered="true" requiredMessage="Campo status é obrigatório.">>
-                            <f:selectItem itemLabel="Selecione um..." itemValue=""/>
-                            <f:selectItem itemLabel="Ativo" itemValue="A"/>
-                            <f:selectItem itemLabel="Inativo" itemValue="I"/>
-                        </p:selectOneMenu>
-
-                    </h:panelGrid>
-                    <br/>
-                    <p:panel id="panel_botoes">
-                        <h:panelGrid columns="2">
-                            <p:commandButton value="Salvar" action="#{serieBean.addSerie}" 
-                                             icon="ui-icon-check" update=":panel_listaSerie"/>
-                            <p:button value="Sair" outcome="home.xhtml" icon="ui-icon-home"/>
-                        </h:panelGrid>
-                    </p:panel>
-                </h:form>
-            </p:panel>
-
-            <h:form id="form_listaSerie">
+            <p:panel header="Series">
                 <div style="margin-top: 6px;">
 
                     <p:dataTable id="tabela_series" var="serie" value="#{serieBean.series}" 
@@ -97,7 +55,8 @@
                             <f:facet name="header">
                                 <h:outputText value="Editar"/>
                             </f:facet>
-                            <p:commandButton title="Editar" icon="ui-icon-pencil" style="font-size: 1px;" update=":form_editar">
+                            <p:commandButton title="Editar" icon="ui-icon-pencil" 
+                                             style="font-size: 7px;" oncomplete="dlgSerie.show()" update=":frm_dialogSerie">
                                 <f:setPropertyActionListener value="#{serie}" target="#{serieBean.serie}"/>
                             </p:commandButton>
                         </p:column>
@@ -106,8 +65,8 @@
                             <f:facet name="header">
                                 <h:outputText value="Excluir"/>
                             </f:facet>
-
-                            <p:commandButton title="Excluir" icon="ui-icon-trash" style="font-size: 1px;" action="#{serieBean.removerSerie}" update=":form_listaSerie">
+                            <p:commandButton title="Excluir" icon="ui-icon-trash" 
+                                             style="font-size: 7px;" onclick="cdExcluir.show()" type="button">
                                 <f:setPropertyActionListener value="#{serie}" target="#{serieBean.serie}"/>
                             </p:commandButton>
                         </p:column>
@@ -116,12 +75,60 @@
                             <h:outputText value="#{serieBean.series.size()} registros recuperados."/>
                         </f:facet>
 
-
                     </p:dataTable>
                 </div>
-            </h:form>
+            </p:panel>
+        </h:form>
 
-        </p:panel>
+        <h:form id="frm_dialogSerie">
+
+            <p:dialog id="dialogSerie" widgetVar="dlgSerie" 
+                      showEffect="fade" hideEffect="explode" modal="true" width="600" 
+                      resizable="false" closeOnEscape="true" header="Cadastro de série">
+
+                <h:panelGrid columns="2" id="panelGrig_campos" cellpadding="5">
+
+                    <h:outputText value="* Serie/Ano:"/>
+                    <p:inputText id="serie" value="#{serieBean.serie.serie}"
+                                 required="true" requiredMessage="Campo serie é obrigatório." size="14"/>
+
+                    <h:outputText value="* Modalidade:"/>
+                    <p:selectOneMenu id="modalidade" value="#{serieBean.serie.modalidade}"
+                                     rendered="true" requiredMessage="Campo modalidade é obrigatório.">
+                        <f:selectItem itemLabel="Selecione um..." itemValue=""/>
+                        <f:selectItem itemLabel="Fundamental" itemValue="FUNDAMENTAL"/>
+                        <f:selectItem itemLabel="Médio" itemValue="MEDIO"/>
+                    </p:selectOneMenu>
+
+                    <h:outputText value="* Status:"/>
+                    <p:selectOneMenu id="status" value="#{serieBean.serie.status}"
+                                     rendered="true" requiredMessage="Campo status é obrigatório.">>
+                        <f:selectItem itemLabel="Selecione um..." itemValue=""/>
+                        <f:selectItem itemLabel="Ativo" itemValue="A"/>
+                        <f:selectItem itemLabel="Inativo" itemValue="I"/>
+                    </p:selectOneMenu>
+
+                </h:panelGrid>
+                <br/>
+                <p:panel id="panel_botoes">
+                    <h:panelGrid columns="2">
+                        <p:commandButton value="Salvar" action="#{serieBean.addSerie}"
+                                         icon="ui-icon-check" update=":form_listaSerie :frm_dialogSerie"/>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dialog>
+
+        </h:form>
+        
+        <h:form id="frm_confirmaExclusaoSerie" >
+            <p:confirmDialog widgetVar="cdExcluir" message="Você realmente que exluir este registro?"
+                             header="Excluir série" severity="alert">
+               
+                <p:commandButton value="Sim" actionListener="#{serieBean.removerSerie}" 
+                                 oncomplete="confirmation.hide()" update=":form_listaSerie :frm_confirmaExclusaoSerie"/>
+                <p:commandButton value="Não" onclick="confirmation.hide()" type="button"/>
+            </p:confirmDialog>
+        </h:form>
 
     </ui:define>
 

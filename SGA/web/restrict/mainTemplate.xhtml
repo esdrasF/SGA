@@ -7,9 +7,9 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link href="./css/default.css" rel="stylesheet" type="text/css" />
-        <link href="./css/cssLayout.css" rel="stylesheet" type="text/css" />
-        <title>Facelets Template</title>
+        <link href="../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>:: SGA ::</title>
     </h:head>
 
     <h:body>
@@ -17,16 +17,9 @@
         <div id="top" class="title ui-widget-header ui-corner-all">
 
             <div id="centro-top" >
-
                 <div id="logo">
-                    <h:outputText value="SGA" style="
-                                  font-size: 50px;
-                                  font-family: Humnst777 Blk BT, cursive;"/>
+                    <h:outputText value="SGA" styleClass="text_logo"/>
                 </div>
-
-<!--                <div id="logout">
-                    <a href="../restrict/home.xhtml">Logout</a>
-                </div>-->
             </div>
 
         </div>
@@ -35,10 +28,12 @@
 
             <!--MENU-->
             <div id="menu_bar">
-
                 <h:form id="frm_menu">
                     <p:menubar id="menu_principal">
-                        <p:menuitem value="Cadastros gerais"/>
+                        <p:submenu label="Cadastros gerais">
+                            <p:menuitem value="Teste" url="../restrict/teste2.xhtml" />
+                            <p:menuitem value="Serie" url="listar_serie.xhtml"/>
+                        </p:submenu>
                     </p:menubar>
                 </h:form>
 
@@ -47,7 +42,9 @@
             <!--CONTEÚDO-->
             <div id="content" class="center_content">
                 
-                <ui:insert name="content">Content</ui:insert>
+                <ui:insert name="content">
+                    
+                </ui:insert>
             </div>
 
         </div>

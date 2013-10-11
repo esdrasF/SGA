@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -19,7 +19,7 @@ import javax.faces.context.FacesContext;
  * @author DIGITACAOFUND
  */
 @ManagedBean(name = "serieBean")
-@ViewScoped
+@SessionScoped
 public class SerieMB implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +53,7 @@ public class SerieMB implements Serializable {
     public void addSerie() {
         if (serie.getId() == null || serie.getId() == 0) {
             inserirSerie();
+            setSerie(new Serie());
             recuperaSeries();
         } else {
             atualizarSerie();
