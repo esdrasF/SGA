@@ -16,6 +16,11 @@
             <h:inputHidden id="idSerie" value="#{serieBean.serie.id}"/>
 
             <p:panel header="Series">
+
+                <p:menubar id="menu_barAluno">
+                    
+                </p:menubar>
+                
                 <div style="margin-top: 6px;">
 
                     <p:dataTable id="tabela_series" var="serie" value="#{serieBean.series}" 
@@ -66,7 +71,7 @@
                                 <h:outputText value="Excluir"/>
                             </f:facet>
                             <p:commandButton title="Excluir" icon="ui-icon-trash" 
-                                             style="font-size: 7px;" onclick="cdExcluir.show()" type="button">
+                                             style="font-size: 7px;" onclick="cdExcluir.show()" update=":form_listaSerie">
                                 <f:setPropertyActionListener value="#{serie}" target="#{serieBean.serie}"/>
                             </p:commandButton>
                         </p:column>
@@ -119,11 +124,11 @@
             </p:dialog>
 
         </h:form>
-        
+
         <h:form id="frm_confirmaExclusaoSerie" >
             <p:confirmDialog widgetVar="cdExcluir" message="Você realmente que exluir este registro?"
                              header="Excluir série" severity="alert">
-               
+
                 <p:commandButton value="Sim" actionListener="#{serieBean.removerSerie}" 
                                  oncomplete="confirmation.hide()" update=":form_listaSerie :frm_confirmaExclusaoSerie"/>
                 <p:commandButton value="Não" onclick="confirmation.hide()" type="button"/>

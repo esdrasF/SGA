@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
  *
  * @author DIGITACAOFUND
  */
+
 @ManagedBean(name = "serieBean")
 @SessionScoped
 public class SerieMB implements Serializable {
@@ -65,7 +66,7 @@ public class SerieMB implements Serializable {
     public void removerSerie() {
         getSerieDAO().remove(serie);
         setSerie(new Serie());
-        recuperaSeries();
+        setSeries(null);
         setMensagem("Serie removida com sucesso.", FacesMessage.SEVERITY_INFO);
     }
 
